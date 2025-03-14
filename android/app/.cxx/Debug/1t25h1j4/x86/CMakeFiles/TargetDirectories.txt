@@ -1,0 +1,2 @@
+C:/Users/kehan/Desktop/am3/Alert_Master_3/android/app/.cxx/Debug/1t25h1j4/x86/CMakeFiles/edit_cache.dir
+C:/Users/kehan/Desktop/am3/Alert_Master_3/android/app/.cxx/Debug/1t25h1j4/x86/CMakeFiles/rebuild_cache.dir
