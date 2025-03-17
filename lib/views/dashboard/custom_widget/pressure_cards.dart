@@ -10,16 +10,15 @@ class OilTemperatureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(25),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey, width: 4),
-      ),
-      width: 150,
+    return Container( width: Get.width * 0.9,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+           color: Colors.black.withValues( alpha:  0.5),
+            borderRadius: BorderRadius.circular(12),
+          ),
+      
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+       
         children: [
           Icon(
             Icons.thermostat_outlined,
@@ -27,33 +26,28 @@ class OilTemperatureCard extends StatelessWidget {
             size: 40,
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+         crossAxisAlignment:  CrossAxisAlignment.start,
             children: [
               const Text(
-                'O.P.',
-                textAlign: TextAlign.center,
+                'Oil Pressure ',
+               
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                    color: Colors.white),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Obx(() {
-                    return Text(
-                      controller.isOilTemperatureOn.value ? 'OPEN' : 'CLOSE',
-                      style: TextStyle(
-                        color: controller.isOilTemperatureOn.value
-                            ? Colors.green
-                            : Colors.red,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }),
-                ],
-              ),
+              Obx(() {
+                return Text(
+                  controller.isOilTemperatureOn.value ? 'OPEN' : 'CLOSE',
+                  style: TextStyle(
+                    color: controller.isOilTemperatureOn.value
+                        ? Colors.green
+                        : Colors.red,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              }),
             ],
           ),
         ],

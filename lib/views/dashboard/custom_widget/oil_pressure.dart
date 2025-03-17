@@ -8,12 +8,14 @@ class OilPressure extends StatelessWidget {
   final String image;
   final Color color;
   final String title;
+  final String heading;
 
   OilPressure({
     Key? key,
     required this.image,
     required this.color,
     required this.title,
+    required this.heading,
   }) : super(key: key);
   final MqttController controller = Get.find<MqttController>();
   @override
@@ -40,54 +42,70 @@ class OilPressure extends StatelessWidget {
         borderColor = Colors.grey;
       }
 
-      return GestureDetector(
-        onTap: () {
-          _showDialog(context, title, controller);
-        },
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Container(
-          height: Get.height * 0.13,
-          width: Get.width * 0.43,
+          width: Get.width * 0.9,
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+             color: Colors.black.withValues( alpha:  0.5),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: borderColor,
-              width: 4,
-            ),
           ),
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 10,
-              ),
-              Image.asset(
-                image,
-                width: 40,
-                height: 40,
-                color: color,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      '$setValue PSI', // Display the set value
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 15, color: Colors.black),
-                    ),
-                  ],
+              Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    heading,
+                    style: const TextStyle(
+                        color: Colors.lightBlue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),   IconButton(
+                  onPressed:  () {
+           _showDialog(context, title, controller);
+        },
+                  icon: const Icon(Icons.settings,size: 30, color: Colors.grey),
                 ),
+                ],
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Image.asset(
+                    image,
+                    width: 40,
+                    height: 40,
+                    color: color,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          '$setValue PSI', // Display the set value
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 15, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

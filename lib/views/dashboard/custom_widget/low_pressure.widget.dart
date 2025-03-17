@@ -2,37 +2,34 @@ import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class InfoCard3 extends StatelessWidget {
-final String heading;
-
+class LowPressureWidget extends StatelessWidget {
   final String image;
   final Color color;
   final String title;
+    final String heading;
+  
 
-  InfoCard3({
+  LowPressureWidget({
     super.key,
     required this.image,
     required this.color,
     required this.title, required this.heading,
   });
-final MqttController _mqttController = Get.find<MqttController>();
-
+  final MqttController controller = Get.find<MqttController>();
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      // Retrieve values from the controller
-      final setValue = _mqttController.psig2.value;
-      final highValue = _mqttController.psig2setlow.value;
+      final setValue = controller.psig1.value;
+      final lowValue = controller.psig1sethigh.value;
 
-      // Determine the border color based on the set value
       Color borderColor;
       double? set = double.tryParse(setValue.toString());
-      double? high = double.tryParse(highValue.toString());
+      double? low = double.tryParse(lowValue.toString());
 
-      if (set != null && high != null) {
-        if (set >= high) {
+      if (set != null && low != null) {
+        if (set <= low) {
           borderColor = Colors.red;
-        } else if (set >= high - 10) {
+        } else if (set <= low + 10) {
           borderColor = Colors.orange;
         } else {
           borderColor = Colors.green;
@@ -41,14 +38,13 @@ final MqttController _mqttController = Get.find<MqttController>();
         borderColor = Colors.grey;
       }
 
-      return
-        Padding(
+      return Padding(
        padding: const EdgeInsets.all(8.0),
         child: Container(
         width:Get.width * 0.9, 
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.black87,
+            color: Colors.black.withValues( alpha:  0.5),
           borderRadius: BorderRadius.circular(12),
         ),
           child: Column( crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +61,7 @@ final MqttController _mqttController = Get.find<MqttController>();
                 ),
                 IconButton(
                   onPressed:  () {
-          _showDialog(context, title, _mqttController);
+          _showDialog(context, title, controller);
         },
                   icon: const Icon(Icons.settings,size: 30, color: Colors.grey),
                 ),
@@ -111,21 +107,21 @@ final MqttController _mqttController = Get.find<MqttController>();
           ),
         ),
       );
-      
     });
   }
 
   void _showDialog(
       BuildContext context, String title, MqttController controller) {
-    final highValue = controller.psig2setlow.value;
-    final lowValue = controller.psig2sethigh.value;
-    final setValue = controller.psig2.value;
+    final highValue = controller.psig1setlow.value;
+    final lowValue = controller.psig1sethigh.value;
+    final setValue = controller.psig1;
 
     final highController = TextEditingController(text: highValue.toString());
     final lowController = TextEditingController(text: lowValue.toString());
     final setController = TextEditingController(text: setValue.toString());
 
     bool isEditable = false;
+    final passwordController = TextEditingController(text: '1234');
 
     showDialog(
       context: context,
@@ -167,9 +163,43 @@ final MqttController _mqttController = Get.find<MqttController>();
                 if (!isEditable)
                   TextButton(
                     onPressed: () {
-                      setState(() {
-                        isEditable = true;
-                      });
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text('Enter Password to Edit'),
+                            content: TextField(
+                              controller: passwordController,
+                              obscureText: true,
+                              decoration:
+                                  const InputDecoration(labelText: 'Password'),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  if (passwordController.text == '1234') {
+                                    setState(() {
+                                      isEditable = true;
+                                    });
+                                    Navigator.pop(context);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Incorrect password')),
+                                    );
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                child: const Text('OK'),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('Cancel'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: const Text('Edit'),
                   ),
@@ -194,8 +224,8 @@ final MqttController _mqttController = Get.find<MqttController>();
                         return;
                       }
 
-                      controller.updateContainerValuesHP(
-                          newHighValue, newLowValue);
+                      controller.updateContainerValuesLP(
+                          newLowValue, newHighValue);
                       Navigator.pop(context);
                     },
                     child: const Text('Save'),
@@ -208,4 +238,3 @@ final MqttController _mqttController = Get.find<MqttController>();
     );
   }
 }
-
