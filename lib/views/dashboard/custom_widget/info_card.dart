@@ -151,7 +151,6 @@ class BuildWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
-          // mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
           

@@ -228,7 +228,7 @@ class MqttController extends GetxController {
     }
   }
 
-  void _buildJsonPayload() {
+  void buildJsonPayload() {
     Map<String, dynamic> jsonPayload = {
       "amp1": amp1.value.toString(),
       "amp2": amp2.value.toString(),
@@ -274,66 +274,70 @@ class MqttController extends GetxController {
 
   void updateChilledWaterInTemp(String temp) {
     temp1.value = int.parse(temp);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void updateChilledWateroutTemp(String temp) {
     temp2.value = int.parse(temp);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void compStatus(String status) {
     comp1status.value = int.parse(status);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
-  void updateSuction(String low, String high) {
-    temp3setlow.value = int.parse(low);
-    temp3sethigh.value = int.parse(high);
-    _buildJsonPayload();
+  void updateSuctionCurrent(double value) {
+     temp3.value = value.toInt();
+  }
+   void updateSuctionHigh(double value) {
+  temp3setlow.value = value.toInt();
+  }
+   void updateSuctionLow(double value) {
+     temp3sethigh.value = value.toInt();
   }
 
   void updateDischargeTemp(String high, String low) {
     temp4setlow.value = int.parse(high);
     temp4sethigh.value = int.parse(low);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void updateContainerValuesLP(String low, String high) {
     psig1sethigh.value = int.parse(low);
     psig1setlow.value = int.parse(high);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void updateOilPressure(String low, String high) {
     psig3sethigh.value = int.parse(low);
     psig3setlow.value = int.parse(high);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void updateContainerValuesHP(String high, String low) {
     psig2sethigh.value = int.parse(low);
     psig2setlow.value = int.parse(high);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void updateContainerValuesAmpereph1(String high, String low) {
     log(high.toString());
     amp1low.value = int.parse(high);
     amp1high.value = int.parse(low);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void updateContainerValuesAmpereph2(String high, String low) {
     amp2low.value = int.parse(high);
     amp2high.value = int.parse(low);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void updateContainerValuesAmpereph3(String high, String low) {
     amp3low.value = int.parse(high);
     amp3high.value = int.parse(low);
-    _buildJsonPayload();
+    buildJsonPayload();
   }
 
   void publishMessage(String message) {
