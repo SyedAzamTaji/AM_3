@@ -292,15 +292,29 @@ class MqttController extends GetxController {
   }
    void updateSuctionHigh(double value) {
   temp3setlow.value = value.toInt();
+  update();
   }
    void updateSuctionLow(double value) {
      temp3sethigh.value = value.toInt();
+     update();
   }
 
   void updateDischargeTemp(String high, String low) {
     temp4setlow.value = int.parse(high);
     temp4sethigh.value = int.parse(low);
     buildJsonPayload();
+  }
+  void updateDischargeCurrent(double value) {
+     temp4.value = value.toInt();
+  }
+  void updateDischargeHigh(double value) {
+  temp4setlow.value = value.toInt();
+  update();
+  }
+   void 
+       updateDischargeLow(double value) {
+     temp4sethigh.value = value.toInt();
+     update();
   }
 
   void updateContainerValuesLP(String low, String high) {

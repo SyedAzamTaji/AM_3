@@ -5,7 +5,8 @@ import 'package:app/views/dashboard/custom_widget/oil_pressure.dart';
 import 'package:app/views/dashboard/custom_widget/amphere_cards.dart';
 import 'package:app/views/dashboard/custom_widget/info_card.dart';
 import 'package:app/views/dashboard/custom_widget/pressure_cards.dart';
-import 'package:app/views/dashboard/suction_setting.dart';
+import 'package:app/views/dashboard/settings_screens/discharge_setting.dart';
+import 'package:app/views/dashboard/settings_screens/suction_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -147,15 +148,15 @@ class _DashboardState extends State<Dashboard> {
                           label: "Temperature",
                           onTap: () {
                             Get.to(() => SuctionSetting(
-                                  title: 'Suction Setting',
-                                  currentTemp:
-                                      _mqttController.temp3.value.toDouble(),
-                                  currentHighTemp: _mqttController
-                                      .temp3setlow.value
-                                      .toDouble(),
-                                  currentLowTemp: _mqttController
-                                      .temp3sethigh.value
-                                      .toDouble(),
+                                  // title: 'Suction Setting',
+                                  // currentTemp:
+                                  //     _mqttController.temp3.value.toDouble(),
+                                  // currentHighTemp: _mqttController
+                                  //     .temp3setlow.value
+                                  //     .toDouble(),
+                                  // currentLowTemp: _mqttController
+                                  //     .temp3sethigh.value
+                                  //     .toDouble(),
                                 ));
                             // showUpdateDialog(
                             //     context: context,
@@ -175,15 +176,16 @@ class _DashboardState extends State<Dashboard> {
                           icon: Icons.thermostat,
                           label: "Temperature",
                           onTap: () {
-                            showUpdateDialog(
-                                context: context,
-                                title: "Discharge",
-                                currentTemp: _mqttController.temp4.value,
-                                currentHighTemp:
-                                    _mqttController.temp4setlow.value,
-                                currentLowTemp:
-                                    _mqttController.temp4sethigh.value,
-                                onUpdate: _mqttController.updateDischargeTemp);
+                            Get.to( ()=>  DischargeSetting());
+                            // showUpdateDialog(
+                            //     context: context,
+                            //     title: "Discharge",
+                            //     currentTemp: _mqttController.temp4.value,
+                            //     currentHighTemp:
+                            //         _mqttController.temp4setlow.value,
+                            //     currentLowTemp:
+                            //         _mqttController.temp4sethigh.value,
+                            //     onUpdate: _mqttController.updateDischargeTemp);
                           },
                           value: ' ${_mqttController.temp4.value}°C',
                           heading: "Discharge",
