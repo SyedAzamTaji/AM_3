@@ -10,6 +10,8 @@ import 'package:app/views/dashboard/settings_screens/suction_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'custom_widget/temperature_container.dart';
+
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
 
@@ -115,21 +117,22 @@ class _DashboardState extends State<Dashboard> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Obx(
-                          () => BuildWidget(
-                            icon: Icons.thermostat,
-                            label: "Temperature",
-                            onTap: () => _showTemperatureDialog(
-                              context,
-                              'Chilled water in',
-                              _mqttController.temp1.value,
-                              _mqttController.updateChilledWaterInTemp,
-                            ),
-                            value: '${_mqttController.temp1.value}°C',
-                            heading: "Chilled Water In",
-                            color: Colors.green.shade700,
-                          ),
-                        ),
+                        TemperatureContainer(),
+                        // Obx(
+                        //   () => BuildWidget(
+                        //     icon: Icons.thermostat,
+                        //     label: "Temperature",
+                        //     onTap: () => _showTemperatureDialog(
+                        //       context,
+                        //       'Chilled water in',
+                        //       _mqttController.temp1.value,
+                        //       _mqttController.updateChilledWaterInTemp,
+                        //     ),
+                        //     value: '${_mqttController.temp1.value}°C',
+                        //     heading: "Chilled Water In",
+                        //     color: Colors.green.shade700,
+                        //   ),
+                        // ),
                         BuildWidget(
                           icon: Icons.thermostat,
                           label: "Temperature",
