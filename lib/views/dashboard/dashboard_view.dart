@@ -1,10 +1,12 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
+import 'package:app/views/dashboard/custom_widget/amperes/ampere_container.dart';
 import 'package:app/views/dashboard/custom_widget/low_pressure.widget.dart';
 import 'package:app/views/dashboard/custom_widget/high_pressure.widget.dart';
 import 'package:app/views/dashboard/custom_widget/oil_pressure.dart';
 import 'package:app/views/dashboard/custom_widget/amphere_cards.dart';
 import 'package:app/views/dashboard/custom_widget/info_card.dart';
 import 'package:app/views/dashboard/custom_widget/pressure_cards.dart';
+import 'package:app/views/dashboard/custom_widget/pressure/pressure_container.dart';
 import 'package:app/views/dashboard/settings_screens/discharge_setting.dart';
 import 'package:app/views/dashboard/settings_screens/suction_setting.dart';
 import 'package:flutter/material.dart';
@@ -55,12 +57,12 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 SizedBox(height: Get.height * 0.012),
                 Center(
-                  child: Obx(
-                    () => Container(
-                      height: Get.height * 0.1,
+                  child: 
+                     Container(
+                      height: Get.height * 0.08,
                       width: Get.width * 0.95,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(15),
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -95,186 +97,157 @@ class _DashboardState extends State<Dashboard> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
-                              _mqttController.comp1status.value == 0
-                                  ? 'ON'
-                                  : 'OFF',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: _mqttController.comp1status.value == 0
-                                    ? Colors.green
-                                    : Colors.redAccent,
+                            
+                             Text(
+                                _mqttController.comp1status.value == 0
+                                    ? 'ON'
+                                    : 'OFF',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: _mqttController.comp1status.value == 0
+                                      ? Colors.green
+                                      : Colors.redAccent,
+                                ),
                               ),
-                            ),
+                            
                           ],
                         ),
                       ),
                     ),
-                  ),
+                  
                 ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        TemperatureContainer(),
-                        // Obx(
-                        //   () => BuildWidget(
-                        //     icon: Icons.thermostat,
-                        //     label: "Temperature",
-                        //     onTap: () => _showTemperatureDialog(
-                        //       context,
-                        //       'Chilled water in',
-                        //       _mqttController.temp1.value,
-                        //       _mqttController.updateChilledWaterInTemp,
-                        //     ),
-                        //     value: '${_mqttController.temp1.value}°C',
-                        //     heading: "Chilled Water In",
-                        //     color: Colors.green.shade700,
-                        //   ),
-                        // ),
-                        BuildWidget(
-                          icon: Icons.thermostat,
-                          label: "Temperature",
-                          onTap: () => _showTemperatureDialog(
-                            context,
-                            'Chilled water out',
-                            _mqttController.temp2.value,
-                            _mqttController.updateChilledWateroutTemp,
-                          ),
-                          value: ' ${_mqttController.temp2.value}°C',
-                          heading: "Chilled Water Out",
-                          color: Colors.red,
-                        ),
-                        BuildWidget(
-                          icon: Icons.thermostat,
-                          label: "Temperature",
-                          onTap: () {
-                            Get.to(() => SuctionSetting(
-                                  // title: 'Suction Setting',
-                                  // currentTemp:
-                                  //     _mqttController.temp3.value.toDouble(),
-                                  // currentHighTemp: _mqttController
-                                  //     .temp3setlow.value
-                                  //     .toDouble(),
-                                  // currentLowTemp: _mqttController
-                                  //     .temp3sethigh.value
-                                  //     .toDouble(),
-                                ));
-                            // showUpdateDialog(
-                            //     context: context,
-                            //     title: "suction",
-                            //     currentTemp: _mqttController.temp3.value,
-                            //     currentHighTemp:
-                            //         _mqttController.temp3setlow.value,
-                            //     currentLowTemp:
-                            //         _mqttController.temp3sethigh.value,
-                            //     onUpdate: _mqttController.updateSuction);
-                          },
-                          value: ' ${_mqttController.temp3.value}°C',
-                          heading: "Suction",
-                          color: Colors.red,
-                        ),
-                        BuildWidget(
-                          icon: Icons.thermostat,
-                          label: "Temperature",
-                          onTap: () {
-                            Get.to( ()=>  DischargeSetting());
-                            // showUpdateDialog(
-                            //     context: context,
-                            //     title: "Discharge",
-                            //     currentTemp: _mqttController.temp4.value,
-                            //     currentHighTemp:
-                            //         _mqttController.temp4setlow.value,
-                            //     currentLowTemp:
-                            //         _mqttController.temp4sethigh.value,
-                            //     onUpdate: _mqttController.updateDischargeTemp);
-                          },
-                          value: ' ${_mqttController.temp4.value}°C',
-                          heading: "Discharge",
-                          color: Colors.red,
-                        ),
-                        LowPressureWidget(
-                          heading: "Low Pressure",
-                          image: 'assets/images/pressure icon.png',
-                          color: Colors.blue,
-                          title: 'L.P.',
-                        ),
-                        HighPressureWidget(
-                          heading: "High Pressure",
-                          image: 'assets/images/pressure icon.png',
-                          color: Colors.redAccent,
-                          title: 'H.P.',
-                        ),
-                        GestureDetector(
-                          onLongPress: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text('Enter Password'),
-                                  content: TextField(
-                                    controller: passwordController,
-                                    obscureText: true,
-                                    decoration: const InputDecoration(
-                                        hintText: "Password"),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text('Cancel'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        if (passwordController.text == "1234") {
-                                          Navigator.of(context).pop();
-                                          _mqttController
-                                              .toggleCardVisibility();
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                                content:
-                                                    Text('Invalid password')),
-                                          );
-                                        }
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          child: AverageInfoCard(),
-                        ),
-                        Obx(() {
-                          return Column(
-                            children: [
-                              if (_mqttController.currentCardIndex.value == 1)
-                                GestureDetector(
-                                  onLongPress: () {
-                                    _mqttController.currentCardIndex.value = 0;
-                                  },
-                                  child: OilPressure(
-                                    heading: "Oil Pressure",
-                                    image: 'assets/images/pressure icon.png',
-                                    color: Colors.green,
-                                    title: 'O.P.',
-                                  ),
-                                ),
-                              if (_mqttController.currentCardIndex.value == 2)
-                                OilTemperatureCard(
-                                  controller: _mqttController,
-                                )
-                            ],
-                          );
-                        }),
-                      ],
-                    ),
-                  ),
+                Column(
+                  children: [SizedBox(height: Get.height*0.01,)
+                    ,TemperatureContainer(),
+                    PressureContainer(),
+                    AmpereContainer(),
+                
+                    // Obx(
+                    //   () => BuildWidget(
+                    //     icon: Icons.thermostat,
+                    //     label: "Temperature",
+                    //     onTap: () => _showTemperatureDialog(
+                    //       context,
+                    //       'Chilled water in',
+                    //       _mqttController.temp1.value,
+                    //       _mqttController.updateChilledWaterInTemp,
+                    //     ),
+                    //     value: '${_mqttController.temp1.value}°C',
+                    //     heading: "Chilled Water In",
+                    //     color: Colors.green.shade700,
+                    //   ),
+                    // ),
+                    // BuildWidget(
+                    //   icon: Icons.thermostat,
+                    //   label: "Temperature",
+                    //   onTap: () => _showTemperatureDialog(
+                    //     context,
+                    //     'Chilled water out',
+                    //     _mqttController.temp2.value,
+                    //     _mqttController.updateChilledWateroutTemp,
+                    //   ),
+                    //   value: ' ${_mqttController.temp2.value}°C',
+                    //   heading: "Chilled Water Out",
+                    //   color: Colors.red,
+                    // ),
+                    // BuildWidget(
+                    //   icon: Icons.thermostat,
+                    //   label: "Temperature",
+                    //   onTap: () {
+                    //     Get.to(() => SuctionSetting(
+                    //           // title: 'Suction Setting',
+                    //           // currentTemp:
+                    //           //     _mqttController.temp3.value.toDouble(),
+                    //           // currentHighTemp: _mqttController
+                    //           //     .temp3setlow.value
+                    //           //     .toDouble(),
+                    //           // currentLowTemp: _mqttController
+                    //           //     .temp3sethigh.value
+                    //           //     .toDouble(),
+                    //         ));
+                    //     // showUpdateDialog(
+                    //     //     context: context,
+                    //     //     title: "suction",
+                    //     //     currentTemp: _mqttController.temp3.value,
+                    //     //     currentHighTemp:
+                    //     //         _mqttController.temp3setlow.value,
+                    //     //     currentLowTemp:
+                    //     //         _mqttController.temp3sethigh.value,
+                    //     //     onUpdate: _mqttController.updateSuction);
+                    //   },
+                    //   value: ' ${_mqttController.temp3.value}°C',
+                    //   heading: "Suction",
+                    //   color: Colors.red,
+                    // ),
+                    // 
+                    // GestureDetector(
+                    //   onLongPress: () {
+                    //     showDialog(
+                    //       context: context,
+                    //       builder: (context) {
+                    //         return AlertDialog(
+                    //           title: const Text('Enter Password'),
+                    //           content: TextField(
+                    //             controller: passwordController,
+                    //             obscureText: true,
+                    //             decoration: const InputDecoration(
+                    //                 hintText: "Password"),
+                    //           ),
+                    //           actions: [
+                    //             TextButton(
+                    //               onPressed: () {
+                    //                 Navigator.of(context).pop();
+                    //               },
+                    //               child: const Text('Cancel'),
+                    //             ),
+                    //             TextButton(
+                    //               onPressed: () {
+                    //                 if (passwordController.text == "1234") {
+                    //                   Navigator.of(context).pop();
+                    //                   _mqttController
+                    //                       .toggleCardVisibility();
+                    //                 } else {
+                    //                   ScaffoldMessenger.of(context)
+                    //                       .showSnackBar(
+                    //                     const SnackBar(
+                    //                         content:
+                    //                             Text('Invalid password')),
+                    //                   );
+                    //                 }
+                    //               },
+                    //               child: const Text('OK'),
+                    //             ),
+                    //           ],
+                    //         );
+                    //       },
+                    //     );
+                    //   },
+                    //   child: AverageInfoCard(),
+                    // ),
+                    // Obx(() {
+                    //   return Column(
+                    //     children: [
+                    //       if (_mqttController.currentCardIndex.value == 1)
+                    //         GestureDetector(
+                    //           onLongPress: () {
+                    //             _mqttController.currentCardIndex.value = 0;
+                    //           },
+                    //           child: OilPressure(
+                    //             heading: "Oil Pressure",
+                    //             image: 'assets/images/pressure icon.png',
+                    //             color: Colors.green,
+                    //             title: 'O.P.',
+                    //           ),
+                    //         ),
+                    //       if (_mqttController.currentCardIndex.value == 2)
+                    //         OilTemperatureCard(
+                    //           controller: _mqttController,
+                    //         )
+                    //     ],
+                    //   );
+                    // }),
+                  ],
                 ),
               ],
             ),

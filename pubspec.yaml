@@ -49,6 +49,7 @@ dependencies:
   shared_preferences: ^2.4.0
   get: ^4.6.6
   sleek_circular_slider: ^2.0.1
+  speedometer_chart: ^1.0.8
 
 
 dev_dependencies:

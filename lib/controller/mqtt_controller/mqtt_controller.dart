@@ -10,13 +10,13 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttController extends GetxController {
   String topicSSIDvalue = "";
-  var amp1 = 18.obs;
-  var amp2 = 18.obs;
-  var amp3 = 18.obs;
-  var temp1 = 18.obs;
+  var amp1 = 18.obs;  //phase3 ka ampere
+  var amp2 = 18.obs;  //phase1 ka ampere
+  var amp3 = 18.obs;  //phase2 ka ampere
+  var temp1 = 16.obs;
   var temp2 = 18.obs;
-  var temp3 = 18.obs;
-  var temp4 = 18.obs;
+  var temp3 = 20.obs;
+  var temp4 = 22.obs;
   var psig1 = 18.25.obs;
   var psig2 = 18.24.obs;
   var psig3 = 18.18.obs;
