@@ -1,4 +1,5 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
+import 'package:app/views/dashboard/custom_widget/temperature/temperature.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 class TemperatureContainer extends StatelessWidget {
@@ -30,7 +31,10 @@ class TemperatureContainer extends StatelessWidget {
                       "Temperatures",
                       style: TextStyle(fontSize: Get.width * 0.06, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
-                    Icon(Icons.settings, color: Colors.white, size: Get.width * 0.07),
+                    GestureDetector(  onTap: (){
+                      Get.to(()=>Temperature());
+                    },
+                      child: Icon(Icons.settings, color: Colors.white, size: Get.width * 0.07)),
                   ],
                 ),
               ),

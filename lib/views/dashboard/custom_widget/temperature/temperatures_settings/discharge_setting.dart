@@ -2,10 +2,23 @@ import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:app/controller/slider_controller/slider_controller.dart';
 
-class DischargeSettings extends StatelessWidget {
-  DischargeSettings({
-    Key? key,
+class DischargeSetting extends StatelessWidget {
+  // final String title;
+  // final double currentTemp;
+  // final double currentHighTemp;
+  // final double currentLowTemp;
+
+  // final Function(double) onUpdate;
+
+  DischargeSetting({ Key? key,
+    // required this.title,
+    // required this.currentTemp,
+    // required this.currentHighTemp,
+    // required this.currentLowTemp,
+
+    // required this.onUpdate,
   }) : super(key: key);
 
   // final SliderController controller = Get.put(SliderController());
@@ -50,7 +63,7 @@ class DischargeSettings extends StatelessWidget {
                       customWidths: CustomSliderWidths(
                         progressBarWidth: Get.width * 0.015,
                         trackWidth: Get.width * 0.015,
-                        handlerSize: Get.width * 0.03,
+                        // handlerSize: Get.width * 0.03,
                       ),
                       customColors: CustomSliderColors(
                         trackColor: Colors.white.withValues(alpha: 0.3),
@@ -64,12 +77,13 @@ class DischargeSettings extends StatelessWidget {
                     min: 0,
                     max: 100,
                     initialValue: _mqttController.temp4.value.toDouble(),
-                    onChange: (double value) {
-                      _mqttController.updateDischargeCurrent(value);
-                    },
-                    onChangeEnd: (double value) {
-                      _mqttController.buildJsonPayload;
-                    },
+                    onChange: null,
+                    //  (double value) {
+                    //   _mqttController.updateSuctionCurrent(value);
+                    // },
+                    // onChangeEnd: (double value) {
+                    //   _mqttController.buildJsonPayload;
+                    // },
                     innerWidget: (double value) => Center(
                       child: Container(
                         padding: EdgeInsets.all(10),
@@ -106,9 +120,9 @@ class DischargeSettings extends StatelessWidget {
 
                 SizedBox(height: Get.height * 0.03),
 
-                /// Sliders for Low & High Temperature
-                _buildSlider("Low Temperature", Colors.blue),
-                _buildSlider2("High Temperature", Colors.red),
+               
+                _buildSlider("Low Pressure", Colors.blue),
+                _buildSlider2("High Pressure", Colors.red),
               ],
             ),
           ),

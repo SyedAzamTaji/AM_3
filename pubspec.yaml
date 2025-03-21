@@ -50,6 +50,7 @@ dependencies:
   get: ^4.6.6
   sleek_circular_slider: ^2.0.1
   speedometer_chart: ^1.0.8
+  lottie: ^3.0.0
 
 
 dev_dependencies:

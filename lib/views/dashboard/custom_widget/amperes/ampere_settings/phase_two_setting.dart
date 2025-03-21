@@ -2,10 +2,23 @@ import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:app/controller/slider_controller/slider_controller.dart';
 
-class DischargeSettings extends StatelessWidget {
-  DischargeSettings({
-    Key? key,
+class PhaseTwoSetting extends StatelessWidget {
+  // final String title;
+  // final double currentTemp;
+  // final double currentHighTemp;
+  // final double currentLowTemp;
+
+  // final Function(double) onUpdate;
+
+  PhaseTwoSetting({ Key? key,
+    // required this.title,
+    // required this.currentTemp,
+    // required this.currentHighTemp,
+    // required this.currentLowTemp,
+
+    // required this.onUpdate,
   }) : super(key: key);
 
   // final SliderController controller = Get.put(SliderController());
@@ -29,7 +42,7 @@ class DischargeSettings extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Discharge Setting",
+                  "Phase 2 Setting",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,
@@ -50,7 +63,7 @@ class DischargeSettings extends StatelessWidget {
                       customWidths: CustomSliderWidths(
                         progressBarWidth: Get.width * 0.015,
                         trackWidth: Get.width * 0.015,
-                        handlerSize: Get.width * 0.03,
+                        // handlerSize: Get.width * 0.03,
                       ),
                       customColors: CustomSliderColors(
                         trackColor: Colors.white.withValues(alpha: 0.3),
@@ -63,13 +76,14 @@ class DischargeSettings extends StatelessWidget {
                     ),
                     min: 0,
                     max: 100,
-                    initialValue: _mqttController.temp4.value.toDouble(),
-                    onChange: (double value) {
-                      _mqttController.updateDischargeCurrent(value);
-                    },
-                    onChangeEnd: (double value) {
-                      _mqttController.buildJsonPayload;
-                    },
+                    initialValue: _mqttController.amp3.value.toDouble(),
+                    onChange: null,
+                    //  (double value) {
+                    //   _mqttController.updateSuctionCurrent(value);
+                    // },
+                    // onChangeEnd: (double value) {
+                    //   _mqttController.buildJsonPayload;
+                    // },
                     innerWidget: (double value) => Center(
                       child: Container(
                         padding: EdgeInsets.all(10),
@@ -85,7 +99,7 @@ class DischargeSettings extends StatelessWidget {
                           ],
                         ),
                         child: Text(
-                          "${_mqttController.temp4.value.toDouble().toStringAsFixed(0)}°C",
+                          "${_mqttController.amp3.value.toDouble().toStringAsFixed(0)} AMP",
                           style: TextStyle(
                             fontSize: Get.width * 0.07,
                             fontWeight: FontWeight.bold,
@@ -106,9 +120,9 @@ class DischargeSettings extends StatelessWidget {
 
                 SizedBox(height: Get.height * 0.03),
 
-                /// Sliders for Low & High Temperature
-                _buildSlider("Low Temperature", Colors.blue),
-                _buildSlider2("High Temperature", Colors.red),
+               
+                _buildSlider("Low Ampere", Colors.blue),
+                _buildSlider2("High Ampere", Colors.red),
               ],
             ),
           ),
@@ -137,7 +151,7 @@ class DischargeSettings extends StatelessWidget {
               ),
               Obx(
                 () => Text(
-                  "${_mqttController.temp4sethigh.value.toDouble().toStringAsFixed(0)}°C",
+                  "${_mqttController.amp2high.value.toDouble().toStringAsFixed(0)} AMP",
                   style: TextStyle(
                     fontSize: Get.width * 0.04,
                     fontWeight: FontWeight.bold,
@@ -158,12 +172,12 @@ class DischargeSettings extends StatelessWidget {
           ),
           child: Obx(
             () => Slider(
-              value: _mqttController.temp4sethigh.value.toDouble(),
+              value: _mqttController.amp2high.value.toDouble(),
               min: 0,
               max: 100,
               divisions: 100,
               onChanged: (double value) {
-                _mqttController.updateDischargeLow(value);
+                _mqttController.updatePhase2lp(value);
               },
             ),
           ),
@@ -192,7 +206,7 @@ class DischargeSettings extends StatelessWidget {
               ),
               Obx(
                 () => Text(
-                  "${_mqttController.temp4setlow.value.toDouble().toStringAsFixed(0)}°C",
+                  "${_mqttController.amp2low.value.toDouble().toStringAsFixed(0)} AMP",
                   style: TextStyle(
                     fontSize: Get.width * 0.04,
                     fontWeight: FontWeight.bold,
@@ -213,12 +227,12 @@ class DischargeSettings extends StatelessWidget {
           ),
           child: Obx(
             () => Slider(
-              value: _mqttController.temp4setlow.value.toDouble(),
+              value: _mqttController.amp2low.value.toDouble(),
               min: 0,
               max: 100,
               divisions: 100,
               onChanged: (double value) {
-                _mqttController.updateDischargeHigh(value);
+                _mqttController.updatePhase2hp(value);
               },
             ),
           ),

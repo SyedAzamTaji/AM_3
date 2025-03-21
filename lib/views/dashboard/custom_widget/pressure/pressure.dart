@@ -1,5 +1,8 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:app/views/dashboard/custom_widget/pressure/pressure_widget.dart';
+import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/high_pressure_setting.dart';
+import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/low_pressure_setting.dart';
+import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/oil_pressure_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -46,23 +49,29 @@ class Pressures extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(onTap: (){
-_showDialogLow(context, "LOW PRESSURE", controller);
+              Get.to(()=>  LowPressureSetting());
+// _showDialogLow(context, "LOW PRESSURE", controller);
               },
-                child: Pressurewidget(
-                  title: "LOW PRESSURE",
-                  high: controller.psig1setlow.value.toString(),
-                  low: controller.psig1sethigh.value.toString(),
-                  setpoint: controller.psig1.value.toString(),
+                child: Obx(
+                  ()=> Pressurewidget(
+                    title: "LOW PRESSURE",
+                    high: controller.psig1setlow.value.toString(),
+                    low: controller.psig1sethigh.value.toString(),
+                    setpoint: controller.psig1.value.toString(),
+                  ),
                 ),
               ),
               GestureDetector(onTap: (){
-                     _showDialogHigh(context, "HIGH PRESSURE", controller);
+                Get.to(()=>HighPressureSetting());
+                    //  _showDialogHigh(context, "HIGH PRESSURE", controller);
               },
-                child: Pressurewidget(
-                  title: "HIGH PRESSURE",
-                  high: controller.psig2setlow.value.toString(),
-                  low: controller.psig2sethigh.value.toString(),
-                  setpoint: controller.psig2.value.toString(),
+                child: Obx(
+                  ()=> Pressurewidget(
+                    title: "HIGH PRESSURE",
+                    high: controller.psig2setlow.value.toString(),
+                    low: controller.psig2sethigh.value.toString(),
+                    setpoint: controller.psig2.value.toString(),
+                  ),
                 ),
               ),
             ],
@@ -71,14 +80,17 @@ _showDialogLow(context, "LOW PRESSURE", controller);
             height: 10,
           ),
          GestureDetector(onTap: (){
-           _showDialogoil(context, "OIL PRESSURE", controller);
+          Get.to(()=>OilPressureSetting());
+          //  _showDialogoil(context, "OIL PRESSURE", controller);
          },
-           child: Pressurewidget(
-                  title: "OIL PRESSURE",
-                  high: controller.psig3setlow.value.toString(),
-                  low: controller.psig3sethigh.value.toString(),
-                  setpoint: controller.psig3.value.toString(),
-                ),
+           child: Obx(
+             ()=> Pressurewidget(
+                    title: "OIL PRESSURE",
+                    high: controller.psig3setlow.value.toString(),
+                    low: controller.psig3sethigh.value.toString(),
+                    setpoint: controller.psig3.value.toString(),
+                  ),
+           ),
          ),
         ],
       ),

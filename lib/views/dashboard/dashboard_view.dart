@@ -12,7 +12,7 @@ import 'package:app/views/dashboard/settings_screens/suction_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'custom_widget/temperature_container.dart';
+import 'custom_widget/temperature/temperature_container.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});

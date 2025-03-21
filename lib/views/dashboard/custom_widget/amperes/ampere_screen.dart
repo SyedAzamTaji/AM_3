@@ -369,11 +369,14 @@
 
 
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
+import 'package:app/views/dashboard/custom_widget/amperes/ampere_settings/phase_one_setting.dart';
+import 'package:app/views/dashboard/custom_widget/amperes/ampere_settings/phase_three_setting.dart';
+import 'package:app/views/dashboard/custom_widget/amperes/ampere_settings/phase_two_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AmphereScreen extends StatelessWidget {
-  const AmphereScreen({super.key});
+class AmpereScreen extends StatelessWidget {
+  const AmpereScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -396,7 +399,7 @@ class AmphereScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 60),
     
-              // Title container
+             
               Center(
                 child: Container(
                   padding:
@@ -440,13 +443,14 @@ class AmphereScreen extends StatelessWidget {
                       icon: Icons.electric_bolt_sharp,
                       color: Colors.blue,
                       title: 'Phase 1',
-                      onTap: () => _showDialogph1(
-                          context,
-                          'Phase 1',
-                          "${mqttController.amp2.value}",
-                          "${mqttController.amp1high.value}",
-                          "${mqttController.amp1low.value}",
-                          mqttController.updateContainerValuesAmpereph1),
+                      onTap: () => Get.to(()=>PhaseOneSetting()),
+                      // _showDialogph1(
+                      //     context,
+                      //     'Phase 1',
+                      //     "${mqttController.amp2.value}",
+                      //     "${mqttController.amp1high.value}",
+                      //     "${mqttController.amp1low.value}",
+                      //     mqttController.updateContainerValuesAmpereph1),
                     ),
                     _buildInfoCard(
                         set: "${mqttController.amp3.value}",
@@ -456,13 +460,15 @@ class AmphereScreen extends StatelessWidget {
                         icon: Icons.electric_bolt_sharp,
                         color: Colors.orange,
                         title: 'Phase 2',
-                        onTap: () => _showDialogph2(
-                            context,
-                            'Phase 2',
-                            "${mqttController.amp3.value}",
-                            "${mqttController.amp2high.value}",
-                            "${mqttController.amp2low.value}",
-                            mqttController.updateContainerValuesAmpereph2)),
+                        onTap: () =>Get.to(()=>PhaseTwoSetting()),
+                        //  _showDialogph2(
+                        //     context,
+                        //     'Phase 2',
+                        //     "${mqttController.amp3.value}",
+                        //     "${mqttController.amp2high.value}",
+                        //     "${mqttController.amp2low.value}",
+                        //     mqttController.updateContainerValuesAmpereph2)
+                            ),
                   ],
                 ),
               ),
@@ -480,13 +486,15 @@ class AmphereScreen extends StatelessWidget {
                         icon: Icons.electric_bolt_sharp,
                         color: Colors.green,
                         title: 'Phase 3',
-                        onTap: () => _showDialogph3(
-                            context,
-                            'Phase 3',
-                            "${mqttController.amp1.value}",
-                            "${mqttController.amp3high.value}",
-                            "${mqttController.amp3low.value}",
-                            mqttController.updateContainerValuesAmpereph3)),
+                        onTap: () => Get.to(()=>PhaseThreeSetting()),
+                        //  _showDialogph3(
+                        //     context,
+                        //     'Phase 3',
+                        //     "${mqttController.amp1.value}",
+                        //     "${mqttController.amp3high.value}",
+                        //     "${mqttController.amp3low.value}",
+                        //     mqttController.updateContainerValuesAmpereph3)
+                            ),
                   ],
                 ),
               ),

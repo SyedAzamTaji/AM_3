@@ -47,9 +47,9 @@ class PressureContainer extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(child: PressureWidget(title: "Low Pressure", pressure:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
-                Expanded(child: PressureWidget(title: "High Pressure", pressure: _mqttController.psig2.value)),SizedBox(width: Get.width*0.01,),
-                Expanded(child: PressureWidget(title: "Oil Pressure", pressure: _mqttController.psig3.value)),
+                Expanded(child: PressureHomeWidget(title: "Low Pressure", pressure:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
+                Expanded(child: PressureHomeWidget(title: "High Pressure", pressure: _mqttController.psig2.value)),SizedBox(width: Get.width*0.01,),
+                Expanded(child: PressureHomeWidget(title: "Oil Pressure", pressure: _mqttController.psig3.value)),
               ],
             ),
           ],
@@ -59,11 +59,11 @@ class PressureContainer extends StatelessWidget {
   }
 }
 
-class PressureWidget extends StatelessWidget {
+class PressureHomeWidget extends StatelessWidget {
   final String title;
   final double pressure;
 
-  const PressureWidget({
+  const PressureHomeWidget({
     required this.title,
     required this.pressure,
     Key? key,

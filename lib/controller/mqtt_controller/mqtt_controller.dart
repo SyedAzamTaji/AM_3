@@ -10,38 +10,38 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttController extends GetxController {
   String topicSSIDvalue = "";
-  var amp1 = 18.obs;  //phase3 ka ampere
-  var amp2 = 18.obs;  //phase1 ka ampere
-  var amp3 = 18.obs;  //phase2 ka ampere
-  var temp1 = 16.obs;
-  var temp2 = 18.obs;
-  var temp3 = 20.obs;
-  var temp4 = 22.obs;
-  var psig1 = 18.25.obs;
-  var psig2 = 18.24.obs;
-  var psig3 = 18.18.obs;
-  var temp1setlow = 18.obs;
-  var temp2setlow = 18.obs;
-  var temp3setlow = 18.obs;
-  var temp4setlow = 18.obs;
-  var psig1setlow = 18.obs;
-  var psig2setlow = 18.obs;
-  var psig3setlow = 18.obs;
+  var amp1 = 18.obs;  //phase3 ka current ampere
+  var amp2 = 15.obs;  //phase1 ka current ampere
+  var amp3 = 13.obs;  //phase2 ka current ampere
+  var temp1 = 16.obs; //cw in current temp
+  var temp2 = 18.obs; //cw out current temp
+  var temp3 = 24.obs; //suction current temp
+  var temp4 = 80.obs; //discharge ka current temp
+  var psig1 = 18.25.obs; //low pressure ka current pressure
+  var psig2 = 25.24.obs; //high ka current pressure
+  var psig3 = 30.18.obs; //oil pressure ka current pressure
+  var temp1setlow = 18.obs; //chill in ka low slider
+  var temp2setlow = 18.obs; 
+  var temp3setlow = 25.obs; //suction ka low slider
+  var temp4setlow = 81.obs; //Discharge ka low slider
+  var psig1setlow = 17.obs; //low pressure setting ka high slider
+  var psig2setlow = 100.obs; //high ka high slider
+  var psig3setlow = 70.obs; //oil pressure ka high slider
 
-  var temp1sethigh = 18.obs;
+  var temp1sethigh = 18.obs; //chill in ka high slider
   var temp2sethigh = 18.obs;
-  var temp3sethigh = 18.obs;
-  var temp4sethigh = 18.obs;
-  var psig1sethigh = 18.obs;
-  var psig2sethigh = 18.obs;
-  var psig3sethigh = 18.obs;
+  var temp3sethigh = 26.obs; //suction ka high slider
+  var temp4sethigh = 82.obs; //Discharge ka high slider
+  var psig1sethigh = 18.obs; //low pressure setting ka low slider
+  var psig2sethigh = 90.obs; //high ka low slider
+  var psig3sethigh = 50.obs; //oil pressure ka low slider
 
-  var amp1high = 18.obs;
-  var amp2high = 18.obs;
-  var amp3high = 18.obs;
-  var amp1low = 18.obs;
-  var amp2low = 18.obs;
-  var amp3low = 18.obs;
+  var amp1high = 30.obs; //phase 1 ko low slider
+  var amp2high = 40.obs; //phase 2 ko low slider
+  var amp3high = 50.obs; //phase 3 ko low slider
+  var amp1low = 35.obs; //phase 1 ka high slider
+  var amp2low = 25.obs; //phase 2 ko high slider
+  var amp3low = 15.obs; //phase 3 ko high slider
   var comp1status = 1.obs;
 
   var mqttBroker = "192.168.18.112".obs;
@@ -298,7 +298,95 @@ class MqttController extends GetxController {
      temp3sethigh.value = value.toInt();
      update();
   }
+    //low pressure ka low slider
+   void updateLowPressurelp(double value) {
+     psig1sethigh.value = value.toInt();
+     update();
+  }
+  //low pressure ka high slider
+   void updateLowPressurehp(double value) {
+     psig1setlow.value = value.toInt();
+     update();
+  }
+   //high pressure ka low slider
+  void updateHighPressurelp(double value) {
+     psig2sethigh.value = value.toInt();
+     update();
+  }
+   //high pressure ka high slider
+  void updateHighPressurehp(double value) {
+     psig2setlow.value = value.toInt();
+     update();
+  }
 
+   //oil pressure ka low slider
+  void updateOilPressurelp(double value) {
+     psig3sethigh.value = value.toInt();
+     update();
+  }
+   //oil pressure ka high slider
+  void updateOilPressurehp(double value) {
+     psig3setlow.value = value.toInt();
+     update();
+  }
+
+   //phase 1 ka low slider
+   void updatePhase1lp(double value) {
+     amp1high.value = value.toInt();
+     update();
+  }
+  //phase 1 ka high slider
+   void updatePhase1hp(double value) {
+     amp1low.value = value.toInt();
+     update();
+  }
+  //phase 2 ka low slider
+   void updatePhase2lp(double value) {
+     amp2high.value = value.toInt();
+     update();
+  }
+  //phase 2 ka high slider
+   void updatePhase2hp(double value) {
+     amp2low.value = value.toInt();
+     update();
+  }
+  //phase 3 ka low slider
+   void updatePhase3lp(double value) {
+     amp3high.value = value.toInt();
+     update();
+  }
+  //phase 3 ka high slider
+   void updatePhase3hp(double value) {
+     amp3low.value = value.toInt();
+     update();
+  }
+
+
+  //Cw in ka low slider
+  void updateChillInlp(double value) {
+  temp1sethigh.value = value.toInt();
+     update();
+  }
+   //Cw in ka high slider
+  void updateChillInhp(double value) {
+   temp1setlow.value = value.toInt();
+     update();
+  }
+
+
+  //Cw out ka low slider
+  void updateChillOutlp(double value) {
+ temp4sethigh.value = value.toInt();
+     update();
+  }
+   //Cw out ka high slider
+  void updateChillOuthp(double value) {
+temp4setlow.value = value.toInt();
+     update();
+  }
+
+
+ 
   void updateDischargeTemp(String high, String low) {
     temp4setlow.value = int.parse(high);
     temp4sethigh.value = int.parse(low);

@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class DischargeSettings extends StatelessWidget {
-  DischargeSettings({
-    Key? key,
-  }) : super(key: key);
-
-  // final SliderController controller = Get.put(SliderController());
+class LowPressureSetting extends StatelessWidget {
   final MqttController _mqttController = Get.find<MqttController>();
 
   @override
@@ -29,7 +24,7 @@ class DischargeSettings extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Discharge Setting",
+                  "Low Pressure Setting",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,
@@ -38,9 +33,8 @@ class DischargeSettings extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: Get.height * 0.02),
-
-                SizedBox(height: Get.height * 0.02),
-
+                
+                /// Disabled Dialer Slider with Full Green Fill
                 Expanded(
                   child: SleekCircularSlider(
                     appearance: CircularSliderAppearance(
@@ -50,42 +44,34 @@ class DischargeSettings extends StatelessWidget {
                       customWidths: CustomSliderWidths(
                         progressBarWidth: Get.width * 0.015,
                         trackWidth: Get.width * 0.015,
-                        handlerSize: Get.width * 0.03,
+                        // handlerSize: Get.width * 0,
                       ),
                       customColors: CustomSliderColors(
-                        trackColor: Colors.white.withValues(alpha: 0.3),
-                        progressBarColors: [
-                          Colors.green,
-                          Colors.lightGreenAccent
-                        ],
-                        dotColor: Colors.white,
+                        trackColor: Colors.white.withValues(alpha:   0.3),
+                        progressBarColors: [Colors.green, Colors.green],
+                        dotColor: Colors.green,
                       ),
                     ),
                     min: 0,
                     max: 100,
-                    initialValue: _mqttController.temp4.value.toDouble(),
-                    onChange: (double value) {
-                      _mqttController.updateDischargeCurrent(value);
-                    },
-                    onChangeEnd: (double value) {
-                      _mqttController.buildJsonPayload;
-                    },
+                    initialValue:  _mqttController.psig1.value,
+                    onChange: null, // Disabled interaction
                     innerWidget: (double value) => Center(
                       child: Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.3),
+                          color: Colors.black.withValues(alpha:   0.3),
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.greenAccent.withValues(alpha: 0.8),
+                              color: Colors.greenAccent.withValues( alpha:  0.8),
                               blurRadius: 15,
                               spreadRadius: 2,
                             ),
                           ],
                         ),
                         child: Text(
-                          "${_mqttController.temp4.value.toDouble().toStringAsFixed(0)}°C",
+                          "${ _mqttController.psig1.value.toDouble().toStringAsFixed(0)} PSI",
                           style: TextStyle(
                             fontSize: Get.width * 0.07,
                             fontWeight: FontWeight.bold,
@@ -105,10 +91,10 @@ class DischargeSettings extends StatelessWidget {
                 ),
 
                 SizedBox(height: Get.height * 0.03),
-
-                /// Sliders for Low & High Temperature
-                _buildSlider("Low Temperature", Colors.blue),
-                _buildSlider2("High Temperature", Colors.red),
+                
+               
+                _buildSlider("Low Pressure", Colors.blue),
+                _buildSlider2("High Pressure", Colors.red),
               ],
             ),
           ),
@@ -137,7 +123,7 @@ class DischargeSettings extends StatelessWidget {
               ),
               Obx(
                 () => Text(
-                  "${_mqttController.temp4sethigh.value.toDouble().toStringAsFixed(0)}°C",
+                  "${_mqttController.psig1sethigh.value.toDouble().toStringAsFixed(0)} PSI",
                   style: TextStyle(
                     fontSize: Get.width * 0.04,
                     fontWeight: FontWeight.bold,
@@ -153,17 +139,17 @@ class DischargeSettings extends StatelessWidget {
           data: SliderTheme.of(Get.context!).copyWith(
             thumbColor: color,
             activeTrackColor: color,
-            inactiveTrackColor: Colors.white.withValues(alpha: 0.3),
-            overlayColor: color.withValues(alpha: 0.3),
+            inactiveTrackColor: Colors.white.withOpacity(0.3),
+            overlayColor: color.withOpacity(0.3),
           ),
           child: Obx(
             () => Slider(
-              value: _mqttController.temp4sethigh.value.toDouble(),
+              value: _mqttController.psig1sethigh.value.toDouble(),
               min: 0,
               max: 100,
               divisions: 100,
               onChanged: (double value) {
-                _mqttController.updateDischargeLow(value);
+                _mqttController.updateLowPressurelp(value);
               },
             ),
           ),
@@ -192,7 +178,7 @@ class DischargeSettings extends StatelessWidget {
               ),
               Obx(
                 () => Text(
-                  "${_mqttController.temp4setlow.value.toDouble().toStringAsFixed(0)}°C",
+                  "${_mqttController.psig1setlow.value.toDouble().toStringAsFixed(0)} PSI",
                   style: TextStyle(
                     fontSize: Get.width * 0.04,
                     fontWeight: FontWeight.bold,
@@ -208,17 +194,17 @@ class DischargeSettings extends StatelessWidget {
           data: SliderTheme.of(Get.context!).copyWith(
             thumbColor: color,
             activeTrackColor: color,
-            inactiveTrackColor: Colors.white.withValues(alpha: 0.3),
-            overlayColor: color.withValues(alpha: 0.3),
+            inactiveTrackColor: Colors.white.withValues(alpha:   0.3),
+            overlayColor: color.withValues(alpha:   0.3),
           ),
           child: Obx(
             () => Slider(
-              value: _mqttController.temp4setlow.value.toDouble(),
+              value: _mqttController.psig1setlow.value.toDouble(),
               min: 0,
               max: 100,
               divisions: 100,
               onChanged: (double value) {
-                _mqttController.updateDischargeHigh(value);
+                _mqttController.updateLowPressurehp(value);
               },
             ),
           ),

@@ -43,7 +43,7 @@ class Pressurewidget extends StatelessWidget {
                 pointerColor: Colors.white,
               ),
             Text(
-                  "$setpoint°C",
+                  "$setpoint PSI",
                   style: const TextStyle(
                     fontSize: 14,
                    color: Colors.white
