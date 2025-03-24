@@ -174,10 +174,14 @@ class ChillOutSetting extends StatelessWidget {
             () => Slider(
               value: _mqttController.temp2sethigh.value.toDouble(),
               min: 0,
-              max: 100,
-              divisions: 100,
+              max:  _mqttController.temp2setlow.value-1,
               onChanged: (double value) {
+                if (_mqttController.temp2sethigh.value<_mqttController.temp2setlow.value) {
+                  
                 _mqttController.updateChillOutlp(value);
+                }else{
+                  _mqttController.temp2sethigh.value=_mqttController.temp2setlow.value-1;
+                }
               },
             ),
           ),
@@ -228,11 +232,19 @@ class ChillOutSetting extends StatelessWidget {
           child: Obx(
             () => Slider(
               value: _mqttController.temp2setlow.value.toDouble(),
-              min: 0,
+              min: _mqttController.temp2sethigh.value+1,
               max: 100,
-              divisions: 100,
               onChanged: (double value) {
+
+
+  if (_mqttController.temp2setlow.value>_mqttController.temp2sethigh.value) {
+                  
                 _mqttController.updateChillOuthp(value);
+               
+                }else{
+                  _mqttController.temp2setlow.value=_mqttController.temp2sethigh.value+1;
+                }
+
               },
             ),
           ),

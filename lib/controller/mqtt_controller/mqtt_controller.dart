@@ -21,7 +21,7 @@ class MqttController extends GetxController {
   var psig2 = 25.24.obs; //high ka current pressure
   var psig3 = 30.18.obs; //oil pressure ka current pressure
   var temp1setlow = 18.obs; //chill in ka low slider
-  var temp2setlow = 18.obs; 
+  var temp2setlow = 25.obs; 
   var temp3setlow = 25.obs; //suction ka low slider
   var temp4setlow = 81.obs; //Discharge ka low slider
   var psig1setlow = 17.obs; //low pressure setting ka high slider
