@@ -56,8 +56,8 @@ class Temperature extends StatelessWidget {
                   ()=> TemperatureWidget(
                       title: "CHILLED WATER IN",
                       setpoint: _mqttController.temp1.value.toString(),
-                      high: "11",
-                      low: "10"),
+                      high: _mqttController.temp1setlow.value.toString(),
+                      low: _mqttController.temp1sethigh.value.toString(),),
                 ),
               ),
               GestureDetector(onTap: (){
@@ -67,8 +67,8 @@ class Temperature extends StatelessWidget {
                   ()=> TemperatureWidget(
                       title: "CHILLED WATER OUT",
                       setpoint: _mqttController.temp2.value.toString(),
-                      high: "11",
-                      low: "10"),
+                      high: _mqttController.temp2setlow.value.toString(),
+                      low: _mqttController.temp2sethigh.value.toString(),),
                 ),
               )
             ],

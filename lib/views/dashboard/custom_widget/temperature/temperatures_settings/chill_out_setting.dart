@@ -177,7 +177,7 @@ class ChillOutSetting extends StatelessWidget {
               max: 100,
               divisions: 100,
               onChanged: (double value) {
-                _mqttController.updateHighPressurelp(value);
+                _mqttController.updateChillOutlp(value);
               },
             ),
           ),
@@ -232,7 +232,7 @@ class ChillOutSetting extends StatelessWidget {
               max: 100,
               divisions: 100,
               onChanged: (double value) {
-                _mqttController.updateHighPressurehp(value);
+                _mqttController.updateChillOuthp(value);
               },
             ),
           ),

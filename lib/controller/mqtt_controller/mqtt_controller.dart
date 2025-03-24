@@ -28,7 +28,7 @@ class MqttController extends GetxController {
   var psig2setlow = 100.obs; //high ka high slider
   var psig3setlow = 70.obs; //oil pressure ka high slider
 
-  var temp1sethigh = 18.obs; //chill in ka high slider
+  var temp1sethigh = 18.obs; 
   var temp2sethigh = 18.obs;
   var temp3sethigh = 26.obs; //suction ka high slider
   var temp4sethigh = 82.obs; //Discharge ka high slider
@@ -276,10 +276,32 @@ class MqttController extends GetxController {
     temp1.value = int.parse(temp);
     buildJsonPayload();
   }
+    //Cw in ka low slider
+  void updateChillInlp(double value) {
+  temp1sethigh.value = value.toInt();
+     update();
+  }
+   //Cw in ka high slider
+  void updateChillInhp(double value) {
+   temp1setlow.value = value.toInt();
+     update();
+  }
+
 
   void updateChilledWateroutTemp(String temp) {
     temp2.value = int.parse(temp);
     buildJsonPayload();
+  }
+  
+  //Cw out ka low slider
+  void updateChillOutlp(double value) {
+ temp2sethigh.value = value.toInt();
+     update();
+  }
+   //Cw out ka high slider
+  void updateChillOuthp(double value) {
+temp2setlow.value = value.toInt();
+     update();
   }
 
   void compStatus(String status) {
@@ -362,28 +384,8 @@ class MqttController extends GetxController {
   }
 
 
-  //Cw in ka low slider
-  void updateChillInlp(double value) {
-  temp1sethigh.value = value.toInt();
-     update();
-  }
-   //Cw in ka high slider
-  void updateChillInhp(double value) {
-   temp1setlow.value = value.toInt();
-     update();
-  }
 
 
-  //Cw out ka low slider
-  void updateChillOutlp(double value) {
- temp4sethigh.value = value.toInt();
-     update();
-  }
-   //Cw out ka high slider
-  void updateChillOuthp(double value) {
-temp4setlow.value = value.toInt();
-     update();
-  }
 
 
  
