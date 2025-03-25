@@ -71,7 +71,7 @@ class LowPressureSetting extends StatelessWidget {
                           ],
                         ),
                         child: Text(
-                          "${ _mqttController.psig1.value.toDouble().toStringAsFixed(0)} PSI",
+                          "${ _mqttController.psig1.value.toDouble().toStringAsFixed(0)} Psi",
                           style: TextStyle(
                             fontSize: Get.width * 0.07,
                             fontWeight: FontWeight.bold,

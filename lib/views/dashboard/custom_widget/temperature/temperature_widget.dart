@@ -20,7 +20,7 @@ class TemperatureWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: Get.width * 0.5,
+        height: Get.width * 0.4,
         decoration: BoxDecoration(
           color: Colors.grey.withValues(alpha: 0.3),
           borderRadius: BorderRadius.circular(12),
@@ -40,27 +40,56 @@ class TemperatureWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            Center(
-              child: SizedBox(
-                height: Get.height * 0.095,
-                // width: 70,
-                child: Lottie.asset(
-                  'assets/images/thermometer.json', // Correct path
-                  width: 200,
-                  height: 200,
-                  fit: BoxFit.contain,
+              SizedBox(height: Get.height*0.02),
+            // Icon(icon, size: 40, color: color),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  // height: Get.height * 0.059,
+                  // width: Get.width * 0.12,
+                  child: CircularProgressIndicator(
+                    value: (double.parse(setpoint) / 100),
+                    strokeWidth: 4,
+                    backgroundColor: Colors.white54,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Colors.greenAccent),
+                  ),
                 ),
-              ),
+                
+                Text(
+                  "${(double.parse(setpoint)).toInt()}°C", // Show percentage
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, 
+
+                    
+                  ),
+                ),
+              ],
             ),
+            // Center(
+            //   child: SizedBox(
+            //     height: Get.height * 0.095,
+            //     // width: 70,
+            //     child: Lottie.asset(
+            //       'assets/images/thermometer.json', // Correct path
+            //       width: 200,
+            //       height: 200,
+            //       fit: BoxFit.contain,
+            //     ),
+            //   ),
+            // ),
             // Icon(Icons.thermostat,size: 70,color: Colors.red,),
 
-            Text(
-              "$setpoint°C",
-              style: const TextStyle(fontSize: 14, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
+            // Text(
+            //   "$setpoint°C",
+            //   style: const TextStyle(fontSize: 14, color: Colors.white),
+            //   textAlign: TextAlign.center,
+            // ),
             SizedBox(
-              height: Get.height * 0.013,
+              height: Get.height * 0.02,
             ),
             Container(
               decoration: BoxDecoration(

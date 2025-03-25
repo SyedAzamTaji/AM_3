@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:app/controller/slider_controller/slider_controller.dart';
 
-class PhaseOneSetting extends StatelessWidget {
+//yaha phase 1 tha change hogaya hay sb phase ek hi ma agay hay.
+class AmpereSetting extends StatelessWidget {
   // final String title;
   // final double currentTemp;
   // final double currentHighTemp;
@@ -12,7 +13,7 @@ class PhaseOneSetting extends StatelessWidget {
 
   // final Function(double) onUpdate;
 
-  PhaseOneSetting({ Key? key,
+  AmpereSetting({ Key? key,
     // required this.title,
     // required this.currentTemp,
     // required this.currentHighTemp,
@@ -42,7 +43,7 @@ class PhaseOneSetting extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Phase 1 Setting",
+                  "Ampere Setting",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,
@@ -99,7 +100,7 @@ class PhaseOneSetting extends StatelessWidget {
                           ],
                         ),
                         child: Text(
-                          "${_mqttController.amp2.value.toDouble().toStringAsFixed(0)} AMP",
+                          "${_mqttController.amp2.value.toDouble().toStringAsFixed(0)} Amp",
                           style: TextStyle(
                             fontSize: Get.width * 0.07,
                             fontWeight: FontWeight.bold,

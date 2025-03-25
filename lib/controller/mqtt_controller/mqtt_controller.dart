@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -10,9 +12,9 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MqttController extends GetxController {
   String topicSSIDvalue = "";
-  var amp1 = 18.obs;  //phase3 ka current ampere
-  var amp2 = 15.obs;  //phase1 ka current ampere
-  var amp3 = 13.obs;  //phase2 ka current ampere
+  var amp1 = 18.obs; //phase3 ka current ampere
+  var amp2 = 15.obs; //phase1 ka current ampere
+  var amp3 = 13.obs; //phase2 ka current ampere
   var temp1 = 16.obs; //cw in current temp
   var temp2 = 18.obs; //cw out current temp
   var temp3 = 24.obs; //suction current temp
@@ -21,14 +23,14 @@ class MqttController extends GetxController {
   var psig2 = 25.24.obs; //high ka current pressure
   var psig3 = 30.18.obs; //oil pressure ka current pressure
   var temp1setlow = 18.obs; //chill in ka low slider
-  var temp2setlow = 25.obs; 
+  var temp2setlow = 25.obs;
   var temp3setlow = 25.obs; //suction ka low slider
   var temp4setlow = 81.obs; //Discharge ka low slider
   var psig1setlow = 17.obs; //low pressure setting ka high slider
   var psig2setlow = 100.obs; //high ka high slider
   var psig3setlow = 70.obs; //oil pressure ka high slider
 
-  var temp1sethigh = 18.obs; 
+  var temp1sethigh = 18.obs;
   var temp2sethigh = 18.obs;
   var temp3sethigh = 26.obs; //suction ka high slider
   var temp4sethigh = 82.obs; //Discharge ka high slider
@@ -44,9 +46,10 @@ class MqttController extends GetxController {
   var amp3low = 15.obs; //phase 3 ko high slider
   var comp1status = 1.obs;
 
-  var mqttBroker = "192.168.18.112".obs;
+  RxString mqttBroker = 'a31qubhv0f0qec-ats.iot.eu-north-1.amazonaws.com'.obs;
+  RxInt port = 8883.obs;
   var clientId = "flutter45".obs;
-  var port = 1883.obs;
+
   var receivedMessage = "".obs;
 
   var isConnected = false.obs;
@@ -64,6 +67,7 @@ class MqttController extends GetxController {
     super.onInit();
     _setupMqttClient();
     _connectMqtt();
+
   }
 
   updatetopicSSIDvalue(value) {
@@ -110,22 +114,61 @@ class MqttController extends GetxController {
     });
   }
 
+  // Future<void> _connectMqtt() async {
+  //   while (true) {
+  //     try {
+  //       log('Attempting to connect...');
+  //       await client?.connect();
+  //       if (client?.connectionStatus?.state == MqttConnectionState.connected) {
+  //         log('Connected to MQTT broker.');
+  //         isConnected.value = true;
+  //         break;
+  //       } else {
+  //         log('Connection failed: ${client?.connectionStatus?.state}');
+  //       }
+  //     } catch (e) {
+  //       log('Exception while connecting: $e');
+  //     }
+  //     await Future.delayed(Duration(seconds: 5));
+  //   }
+  // }
+
   Future<void> _connectMqtt() async {
-    while (true) {
-      try {
-        log('Attempting to connect...');
-        await client?.connect();
-        if (client?.connectionStatus?.state == MqttConnectionState.connected) {
-          log('Connected to MQTT broker.');
-          isConnected.value = true;
-          break;
-        } else {
-          log('Connection failed: ${client?.connectionStatus?.state}');
-        }
-      } catch (e) {
-        log('Exception while connecting: $e');
+    if (client == null) {
+      log("MQTT Client is not initialized!");
+      return;
+    }
+
+    try {
+      log("Loading certificates...");
+      final context = SecurityContext.defaultContext;
+
+      final rootCa = await rootBundle.load('assets/root-CA.crt');
+      final deviceCert = await rootBundle.load('assets/Temperature.cert.pem');
+      final privateKey = await rootBundle.load('assets/Temperature.private.key');
+
+      context.setClientAuthoritiesBytes(rootCa.buffer.asUint8List());
+      context.useCertificateChainBytes(deviceCert.buffer.asUint8List());
+      context.usePrivateKeyBytes(privateKey.buffer.asUint8List());
+
+      client!.securityContext = context;
+      client!.connectionMessage = MqttConnectMessage()
+          .withClientIdentifier(clientId.value)
+          .startClean();
+
+      log("Connecting to MQTT broker...");
+      await client!.connect();
+
+      if (client!.connectionStatus!.state == MqttConnectionState.connected) {
+        log('Connected to MQTT broker.');
+        isConnected.value = true;
+      } else {
+        log('Connection failed: ${client!.connectionStatus!.state}');
+        client!.disconnect();
       }
-      await Future.delayed(Duration(seconds: 5));
+    } catch (e) {
+      log('MQTT client exception: $e');
+      client?.disconnect();
     }
   }
 
@@ -276,32 +319,34 @@ class MqttController extends GetxController {
     temp1.value = int.parse(temp);
     buildJsonPayload();
   }
-    //Cw in ka low slider
+
+  //Cw in ka low slider
   void updateChillInlp(double value) {
-  temp1sethigh.value = value.toInt();
-     update();
-  }
-   //Cw in ka high slider
-  void updateChillInhp(double value) {
-   temp1setlow.value = value.toInt();
-     update();
+    temp1sethigh.value = value.toInt();
+    update();
   }
 
+  //Cw in ka high slider
+  void updateChillInhp(double value) {
+    temp1setlow.value = value.toInt();
+    update();
+  }
 
   void updateChilledWateroutTemp(String temp) {
     temp2.value = int.parse(temp);
     buildJsonPayload();
   }
-  
+
   //Cw out ka low slider
   void updateChillOutlp(double value) {
- temp2sethigh.value = value.toInt();
-     update();
+    temp2sethigh.value = value.toInt();
+    update();
   }
-   //Cw out ka high slider
+
+  //Cw out ka high slider
   void updateChillOuthp(double value) {
-temp2setlow.value = value.toInt();
-     update();
+    temp2setlow.value = value.toInt();
+    update();
   }
 
   void compStatus(String status) {
@@ -310,101 +355,109 @@ temp2setlow.value = value.toInt();
   }
 
   void updateSuctionCurrent(double value) {
-     temp3.value = value.toInt();
+    temp3.value = value.toInt();
   }
-   void updateSuctionHigh(double value) {
-  temp3setlow.value = value.toInt();
-  update();
+
+  void updateSuctionHigh(double value) {
+    temp3setlow.value = value.toInt();
+    update();
   }
-   void updateSuctionLow(double value) {
-     temp3sethigh.value = value.toInt();
-     update();
+
+  void updateSuctionLow(double value) {
+    temp3sethigh.value = value.toInt();
+    update();
   }
-    //low pressure ka low slider
-   void updateLowPressurelp(double value) {
-     psig1sethigh.value = value.toInt();
-     update();
+
+  //low pressure ka low slider
+  void updateLowPressurelp(double value) {
+    psig1sethigh.value = value.toInt();
+    update();
   }
+
   //low pressure ka high slider
-   void updateLowPressurehp(double value) {
-     psig1setlow.value = value.toInt();
-     update();
+  void updateLowPressurehp(double value) {
+    psig1setlow.value = value.toInt();
+    update();
   }
-   //high pressure ka low slider
+
+  //high pressure ka low slider
   void updateHighPressurelp(double value) {
-     psig2sethigh.value = value.toInt();
-     update();
+    psig2sethigh.value = value.toInt();
+    update();
   }
-   //high pressure ka high slider
+
+  //high pressure ka high slider
   void updateHighPressurehp(double value) {
-     psig2setlow.value = value.toInt();
-     update();
+    psig2setlow.value = value.toInt();
+    update();
   }
 
-   //oil pressure ka low slider
+  //oil pressure ka low slider
   void updateOilPressurelp(double value) {
-     psig3sethigh.value = value.toInt();
-     update();
+    psig3sethigh.value = value.toInt();
+    update();
   }
-   //oil pressure ka high slider
+
+  //oil pressure ka high slider
   void updateOilPressurehp(double value) {
-     psig3setlow.value = value.toInt();
-     update();
+    psig3setlow.value = value.toInt();
+    update();
   }
 
-   //phase 1 ka low slider
-   void updatePhase1lp(double value) {
-     amp1high.value = value.toInt();
-     update();
+  //phase 1 ka low slider
+  void updatePhase1lp(double value) {
+    amp1high.value = value.toInt();
+    update();
   }
+
   //phase 1 ka high slider
-   void updatePhase1hp(double value) {
-     amp1low.value = value.toInt();
-     update();
+  void updatePhase1hp(double value) {
+    amp1low.value = value.toInt();
+    update();
   }
+
   //phase 2 ka low slider
-   void updatePhase2lp(double value) {
-     amp2high.value = value.toInt();
-     update();
+  void updatePhase2lp(double value) {
+    amp2high.value = value.toInt();
+    update();
   }
+
   //phase 2 ka high slider
-   void updatePhase2hp(double value) {
-     amp2low.value = value.toInt();
-     update();
+  void updatePhase2hp(double value) {
+    amp2low.value = value.toInt();
+    update();
   }
+
   //phase 3 ka low slider
-   void updatePhase3lp(double value) {
-     amp3high.value = value.toInt();
-     update();
+  void updatePhase3lp(double value) {
+    amp3high.value = value.toInt();
+    update();
   }
+
   //phase 3 ka high slider
-   void updatePhase3hp(double value) {
-     amp3low.value = value.toInt();
-     update();
+  void updatePhase3hp(double value) {
+    amp3low.value = value.toInt();
+    update();
   }
 
-
-
-
-
-
- 
   void updateDischargeTemp(String high, String low) {
     temp4setlow.value = int.parse(high);
     temp4sethigh.value = int.parse(low);
     buildJsonPayload();
   }
+
   void updateDischargeCurrent(double value) {
-     temp4.value = value.toInt();
+    temp4.value = value.toInt();
   }
+
   void updateDischargeHigh(double value) {
-  temp4setlow.value = value.toInt();
-  update();
+    temp4setlow.value = value.toInt();
+    update();
   }
-   void 
-       updateDischargeLow(double value) {
-     temp4sethigh.value = value.toInt();
-     update();
+
+  void updateDischargeLow(double value) {
+    temp4sethigh.value = value.toInt();
+    update();
   }
 
   void updateContainerValuesLP(String low, String high) {

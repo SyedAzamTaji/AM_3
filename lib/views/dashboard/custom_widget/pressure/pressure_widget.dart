@@ -12,7 +12,7 @@ class Pressurewidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Padding(
        padding: const EdgeInsets.all(8.0),
-       child: Container(height: Get.width * 0.5 ,
+       child: Container(height: Get.width * 0.4 ,
             decoration: BoxDecoration(
              color: Colors.grey.withValues(alpha:  0.3),
               borderRadius: BorderRadius.circular(12),
@@ -33,23 +33,51 @@ class Pressurewidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
           ),
-              SpeedometerChart(
-               dimension: 100,
-                minValue: 0,
-                maxValue: 100,
-                value: double.parse(setpoint),
-
-                graphColor: [Colors.red, Colors.yellow, Colors.green],
-                pointerColor: Colors.white,
-              ),
-            Text(
-                  "$setpoint PSI",
-                  style: const TextStyle(
-                    fontSize: 14,
-                   color: Colors.white
+         SizedBox(height: Get.height*0.02),
+            // Icon(icon, size: 40, color: color),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  // height: Get.height * 0.059,
+                  // width: Get.width * 0.12,
+                  child: CircularProgressIndicator(
+                    value: (double.parse(setpoint) / 100),
+                    strokeWidth: 4,
+                    backgroundColor: Colors.white54,
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Colors.greenAccent),
                   ),
-                  textAlign: TextAlign.center,
-                ),SizedBox(height: 10,),
+                ),
+                
+                Text(
+                  "${(double.parse(setpoint)).toInt()} P", // Show percentage
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Change color as needed
+                  ),
+                ),
+              ],
+            ),
+              // SpeedometerChart(
+              //  dimension: 100,
+              //   minValue: 0,
+              //   maxValue: 100,
+              //   value: double.parse(setpoint),
+
+              //   graphColor: [Colors.red, Colors.yellow, Colors.green],
+              //   pointerColor: Colors.white,
+              // ),
+            // Text(
+            //       "$setpoint PSI",
+            //       style: const TextStyle(
+            //         fontSize: 14,
+            //        color: Colors.white
+            //       ),
+            //       textAlign: TextAlign.center,
+            //     ),
+                SizedBox(height: Get.height * 0.02),
                 Container(
                   decoration: BoxDecoration(
        
