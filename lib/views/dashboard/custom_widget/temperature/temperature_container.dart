@@ -42,14 +42,18 @@ class TemperatureContainer extends StatelessWidget {
               SizedBox(height: Get.height * 0.02),
          
               /// **Row with 4 Temperature Sections**
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TemperatureWidget(title: "C.W. In", temperature: _mqttController.temp1.value),SizedBox(width: Get.width*0.02,),
-                  TemperatureWidget(title: "C.W. Out", temperature: _mqttController.temp2.value),SizedBox(width: Get.width*0.02,),
-                  TemperatureWidget(title: "Suction", temperature: _mqttController.temp3.value),SizedBox(width: Get.width*0.02,),
-                  TemperatureWidget(title: "Discharge", temperature: _mqttController.temp4.value),
-                ],
+              Obx(
+                ()=> Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    //cw in=>return
+                    TemperatureWidget(title: "Return", temperature: _mqttController.temp1.value),SizedBox(width: Get.width*0.02,),
+                    //cw out =>cw out
+                    TemperatureWidget(title: "Supply", temperature: _mqttController.temp2.value),SizedBox(width: Get.width*0.02,),
+                    TemperatureWidget(title: "Suction", temperature: _mqttController.temp3.value),SizedBox(width: Get.width*0.02,),
+                    TemperatureWidget(title: "Discharge", temperature: _mqttController.temp4.value),
+                  ],
+                ),
               ),
             ],
           ),
@@ -70,7 +74,7 @@ class TemperatureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: Get.height *0.13,
+    return Container(height: Get.height *0.14,
                   width: Get.width*0.2,
                   decoration: BoxDecoration(
                     // boxShadow: [BoxShadow( color: Colors.green.shade100,blurRadius: 2,spreadRadius: 2),],

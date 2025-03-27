@@ -45,15 +45,17 @@ class AmpereContainer extends StatelessWidget {
           SizedBox(height: Get.height * 0.01),
     
          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(child: AmpereWidget(title: "Phase 1", ampere: _mqttController.amp2.value)),
-              SizedBox(width: Get.width * 0.01),
-              Expanded(child: AmpereWidget(title: "Phase 2", ampere: _mqttController.amp3.value)),
-              SizedBox(width: Get.width * 0.01),
-              Expanded(child: AmpereWidget(title: "Phase 3", ampere: _mqttController.amp1.value)),
-            ],
+          Obx(
+            ()=> Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(child: AmpereWidget(title: "Phase 1", ampere: _mqttController.amp2.value)),
+                SizedBox(width: Get.width * 0.01),
+                Expanded(child: AmpereWidget(title: "Phase 2", ampere: _mqttController.amp3.value)),
+                SizedBox(width: Get.width * 0.01),
+                Expanded(child: AmpereWidget(title: "Phase 3", ampere: _mqttController.amp1.value)),
+              ],
+            ),
           ),
         ],
       ),

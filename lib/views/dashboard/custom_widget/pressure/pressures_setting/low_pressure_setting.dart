@@ -24,7 +24,7 @@ class LowPressureSetting extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Low Pressure Setting",
+                  "Suction Pressure Setting",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class LowPressureSetting extends StatelessWidget {
                       ),
                     ),
                     min: 0,
-                    max: 100,
+                    max: 1000,
                     initialValue:  _mqttController.psig1.value,
                     onChange: null, // Disabled interaction
                     innerWidget: (double value) => Center(

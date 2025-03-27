@@ -54,7 +54,7 @@ class Temperature extends StatelessWidget {
               },
                 child: Obx(
                   ()=> TemperatureWidget(
-                      title: "CHILLED WATER IN",
+                      title: "RETURN",
                       setpoint: _mqttController.temp1.value.toString(),
                       high: _mqttController.temp1setlow.value.toString(),
                       low: _mqttController.temp1sethigh.value.toString(),),
@@ -65,7 +65,7 @@ class Temperature extends StatelessWidget {
               },
                 child: Obx(
                   ()=> TemperatureWidget(
-                      title: "CHILLED WATER OUT",
+                      title: "SUPPLY",
                       setpoint: _mqttController.temp2.value.toString(),
                       high: _mqttController.temp2setlow.value.toString(),
                       low: _mqttController.temp2sethigh.value.toString(),),

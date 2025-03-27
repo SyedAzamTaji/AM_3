@@ -12,7 +12,7 @@ class Pressurewidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Padding(
        padding: const EdgeInsets.all(8.0),
-       child: Container(height: Get.width * 0.4 ,
+       child: Container(height: Get.width * 0.5 ,
             decoration: BoxDecoration(
              color: Colors.grey.withValues(alpha:  0.3),
               borderRadius: BorderRadius.circular(12),
@@ -42,7 +42,7 @@ class Pressurewidget extends StatelessWidget {
                   // height: Get.height * 0.059,
                   // width: Get.width * 0.12,
                   child: CircularProgressIndicator(
-                    value: (double.parse(setpoint) / 100),
+                    value: (double.parse(setpoint) / 1000),
                     strokeWidth: 4,
                     backgroundColor: Colors.white54,
                     valueColor:
@@ -77,7 +77,7 @@ class Pressurewidget extends StatelessWidget {
             //       ),
             //       textAlign: TextAlign.center,
             //     ),
-                SizedBox(height: Get.height * 0.02),
+                SizedBox(height: Get.height * 0.04),
                 Container(
                   decoration: BoxDecoration(
        

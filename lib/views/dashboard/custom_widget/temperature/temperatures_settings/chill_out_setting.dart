@@ -42,7 +42,7 @@ class ChillOutSetting extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Chill Water Out Setting",
+                  "Supply Setting",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,
@@ -121,8 +121,8 @@ class ChillOutSetting extends StatelessWidget {
                 SizedBox(height: Get.height * 0.03),
 
                
-                _buildSlider("Low Pressure", Colors.blue),
-                _buildSlider2("High Pressure", Colors.red),
+                _buildSlider("Low Temperature", Colors.blue),
+                _buildSlider2("High Temperature", Colors.red),
               ],
             ),
           ),

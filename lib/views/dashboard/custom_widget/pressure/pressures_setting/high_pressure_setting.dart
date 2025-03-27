@@ -42,7 +42,7 @@ class HighPressureSetting extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "High Pressure Setting",
+                  "Discharge Pressure Setting",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class HighPressureSetting extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
 
-                SizedBox(height: Get.height * 0.02),
+                // SizedBox(height: Get.height * 0.02),
 
                 Expanded(
                   child: SleekCircularSlider(
@@ -75,7 +75,7 @@ class HighPressureSetting extends StatelessWidget {
                       ),
                     ),
                     min: 0,
-                    max: 100,
+                    max: 1000,
                     initialValue: _mqttController.psig2.value.toDouble(),
                     onChange: null,
                     //  (double value) {

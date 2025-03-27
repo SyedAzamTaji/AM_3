@@ -48,7 +48,7 @@ class MqttController extends GetxController {
 
   RxString mqttBroker = 'a31qubhv0f0qec-ats.iot.eu-north-1.amazonaws.com'.obs;
   RxInt port = 8883.obs;
-  var clientId = "flutter45".obs;
+  var clientId = "flutter459gjmhhg".obs;
 
   var receivedMessage = "".obs;
 
@@ -67,7 +67,6 @@ class MqttController extends GetxController {
     super.onInit();
     _setupMqttClient();
     _connectMqtt();
-
   }
 
   updatetopicSSIDvalue(value) {
@@ -77,9 +76,13 @@ class MqttController extends GetxController {
   }
 
   void _setupMqttClient() {
-    client = MqttServerClient(mqttBroker.value, clientId.value);
-    client?.port = port.value;
-    client?.logging(on: true);
+    client =
+        MqttServerClient.withPort(mqttBroker.value, clientId.value, port.value);
+    client?.secure = true;
+    client?.keepAlivePeriod = 60;
+    client?.setProtocolV311();
+    client?.logging(on: false);
+
     client?.onDisconnected = _onDisconnected;
     client?.onConnected = _onConnected;
     client?.onSubscribed = _onSubscribed;
@@ -87,7 +90,13 @@ class MqttController extends GetxController {
 
   void _onDisconnected() {
     log('Disconnected from MQTT broker.');
+
     isConnected.value = false;
+    Future.delayed(
+        Duration(
+          seconds: 5,
+        ),
+        _connectMqtt);
   }
 
   void _onConnected() {
@@ -145,7 +154,8 @@ class MqttController extends GetxController {
 
       final rootCa = await rootBundle.load('assets/root-CA.crt');
       final deviceCert = await rootBundle.load('assets/Temperature.cert.pem');
-      final privateKey = await rootBundle.load('assets/Temperature.private.key');
+      final privateKey =
+          await rootBundle.load('assets/Temperature.private.key');
 
       context.setClientAuthoritiesBytes(rootCa.buffer.asUint8List());
       context.useCertificateChainBytes(deviceCert.buffer.asUint8List());
@@ -297,12 +307,12 @@ class MqttController extends GetxController {
       "psig1set_HIGH": psig1sethigh.value.toString(),
       "psig2set_HIGH": psig2sethigh.value.toString(),
       "psig3set_HIGH": psig3sethigh.value.toString(),
-      "amp1set_HIGH": amp1high.value.toString(),
-      "amp2set_HIGH": amp2high.value.toString(),
-      "amp3set_HIGH": amp3high.value.toString(),
-      "amp1set_LOW": amp1low.value.toString(),
-      "amp2set_LOW": amp2low.value.toString(),
-      "amp3set_LOW": amp3low.value.toString(),
+      "AMP1_HIGH": amp1high.value.toString(),
+      "AMP2_HIGH": amp2high.value.toString(),
+      "AMP3_HIGH": amp3high.value.toString(),
+      "AMP1_LOW": amp1low.value.toString(),
+      "AMP2_LOW": amp2low.value.toString(),
+      "AMP3_LOW": amp3low.value.toString(),
       "comp1status": comp1status.value.toString(),
     };
 
@@ -323,12 +333,14 @@ class MqttController extends GetxController {
   //Cw in ka low slider
   void updateChillInlp(double value) {
     temp1sethigh.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //Cw in ka high slider
   void updateChillInhp(double value) {
     temp1setlow.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
@@ -340,12 +352,14 @@ class MqttController extends GetxController {
   //Cw out ka low slider
   void updateChillOutlp(double value) {
     temp2sethigh.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //Cw out ka high slider
   void updateChillOuthp(double value) {
     temp2setlow.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
@@ -356,87 +370,102 @@ class MqttController extends GetxController {
 
   void updateSuctionCurrent(double value) {
     temp3.value = value.toInt();
+    buildJsonPayload();
   }
 
   void updateSuctionHigh(double value) {
     temp3setlow.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   void updateSuctionLow(double value) {
     temp3sethigh.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //low pressure ka low slider
   void updateLowPressurelp(double value) {
     psig1sethigh.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //low pressure ka high slider
   void updateLowPressurehp(double value) {
     psig1setlow.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //high pressure ka low slider
   void updateHighPressurelp(double value) {
     psig2sethigh.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //high pressure ka high slider
   void updateHighPressurehp(double value) {
     psig2setlow.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //oil pressure ka low slider
   void updateOilPressurelp(double value) {
     psig3sethigh.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //oil pressure ka high slider
   void updateOilPressurehp(double value) {
     psig3setlow.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //phase 1 ka low slider
   void updatePhase1lp(double value) {
     amp1high.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //phase 1 ka high slider
   void updatePhase1hp(double value) {
     amp1low.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //phase 2 ka low slider
   void updatePhase2lp(double value) {
     amp2high.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //phase 2 ka high slider
   void updatePhase2hp(double value) {
     amp2low.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //phase 3 ka low slider
   void updatePhase3lp(double value) {
     amp3high.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   //phase 3 ka high slider
   void updatePhase3hp(double value) {
     amp3low.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
@@ -448,15 +477,18 @@ class MqttController extends GetxController {
 
   void updateDischargeCurrent(double value) {
     temp4.value = value.toInt();
+    buildJsonPayload();
   }
 
   void updateDischargeHigh(double value) {
     temp4setlow.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
   void updateDischargeLow(double value) {
     temp4sethigh.value = value.toInt();
+    buildJsonPayload();
     update();
   }
 
@@ -508,7 +540,7 @@ class MqttController extends GetxController {
           topic,
           MqttQos.atLeastOnce,
           builder.payload!,
-          retain: true,
+          retain: false,
         );
         log('Message published to $topic: $message');
       } catch (e) {

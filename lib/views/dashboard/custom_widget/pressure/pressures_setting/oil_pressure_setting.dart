@@ -75,7 +75,7 @@ class OilPressureSetting extends StatelessWidget {
                       ),
                     ),
                     min: 0,
-                    max: 100,
+                    max: 1000,
                     initialValue: _mqttController.psig3.value.toDouble(),
                     onChange: null,
                     // (double value) {

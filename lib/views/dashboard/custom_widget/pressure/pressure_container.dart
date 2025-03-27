@@ -44,13 +44,15 @@ class PressureContainer extends StatelessWidget {
             ),
             SizedBox(height: Get.height * 0.01),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(child: PressureHomeWidget(title: "Low Pressure", pressure:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
-                Expanded(child: PressureHomeWidget(title: "High Pressure", pressure: _mqttController.psig2.value)),SizedBox(width: Get.width*0.01,),
-                Expanded(child: PressureHomeWidget(title: "Oil Pressure", pressure: _mqttController.psig3.value)),
-              ],
+            Obx(
+              ()=> Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(child: PressureHomeWidget(title: "Suction Pressure", pressure:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
+                  Expanded(child: PressureHomeWidget(title: "Discharge Pressure", pressure: _mqttController.psig2.value)),SizedBox(width: Get.width*0.01,),
+                  Expanded(child: PressureHomeWidget(title: "Oil\nPressure", pressure: _mqttController.psig3.value)),
+                ],
+              ),
             ),
           ],
         ),

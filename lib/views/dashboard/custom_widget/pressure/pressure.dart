@@ -54,7 +54,7 @@ class Pressures extends StatelessWidget {
               },
                 child: Obx(
                   ()=> Pressurewidget(
-                    title: "LOW PRESSURE",
+                    title: "SUCTION PRESSURE",
                     high: controller.psig1setlow.value.toString(),
                     low: controller.psig1sethigh.value.toString(),
                     setpoint: controller.psig1.value.toString(),
@@ -67,7 +67,7 @@ class Pressures extends StatelessWidget {
               },
                 child: Obx(
                   ()=> Pressurewidget(
-                    title: "HIGH PRESSURE",
+                    title: "DISCHARGE PRESSURE",
                     high: controller.psig2setlow.value.toString(),
                     low: controller.psig2sethigh.value.toString(),
                     setpoint: controller.psig2.value.toString(),
@@ -85,7 +85,7 @@ class Pressures extends StatelessWidget {
          },
            child: Obx(
              ()=> Pressurewidget(
-                    title: "OIL PRESSURE",
+                    title: "OIL\nPRESSURE",
                     high: controller.psig3setlow.value.toString(),
                     low: controller.psig3sethigh.value.toString(),
                     setpoint: controller.psig3.value.toString(),
