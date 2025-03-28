@@ -122,7 +122,7 @@ class OilPressureSetting extends StatelessWidget {
 
                 /// Sliders for Low & High Temperature
                 _buildSlider("Low Pressure", Colors.blue),
-                _buildSlider2("High Pressure", Colors.red),
+                // _buildSlider2("High Pressure", Colors.red),
               ],
             ),
           ),

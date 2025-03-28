@@ -1,4 +1,5 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
+import 'package:app/utilz/App_dialog.dart';
 import 'package:app/views/dashboard/custom_widget/pressure/pressure.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,8 @@ class PressureContainer extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(onTap: (){
-                    Get.to(()=>Pressures());
+                   PasswordDialog().showPasswordDialog(Pressures());
+                   
                   },  
                     child: Icon(Icons.settings, color: Colors.white, size: Get.width * 0.07)),
                 ],
@@ -60,6 +62,9 @@ class PressureContainer extends StatelessWidget {
     );
   }
 }
+ 
+
+
 
 class PressureHomeWidget extends StatelessWidget {
   final String title;

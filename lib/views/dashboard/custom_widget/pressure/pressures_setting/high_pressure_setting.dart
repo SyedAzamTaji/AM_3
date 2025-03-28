@@ -121,7 +121,7 @@ class HighPressureSetting extends StatelessWidget {
                 SizedBox(height: Get.height * 0.03),
 
                
-                _buildSlider("Low Pressure", Colors.blue),
+                // _buildSlider("Low Pressure", Colors.blue),
                 _buildSlider2("High Pressure", Colors.red),
               ],
             ),

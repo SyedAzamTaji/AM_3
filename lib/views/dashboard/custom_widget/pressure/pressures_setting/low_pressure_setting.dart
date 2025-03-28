@@ -33,8 +33,6 @@ class LowPressureSetting extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: Get.height * 0.02),
-                
-                /// Disabled Dialer Slider with Full Green Fill
                 Expanded(
                   child: SleekCircularSlider(
                     appearance: CircularSliderAppearance(
@@ -94,7 +92,7 @@ class LowPressureSetting extends StatelessWidget {
                 
                
                 _buildSlider("Low Pressure", Colors.blue),
-                _buildSlider2("High Pressure", Colors.red),
+                // _buildSlider2("High Pressure", Colors.red),
               ],
             ),
           ),
@@ -139,8 +137,8 @@ class LowPressureSetting extends StatelessWidget {
           data: SliderTheme.of(Get.context!).copyWith(
             thumbColor: color,
             activeTrackColor: color,
-            inactiveTrackColor: Colors.white.withOpacity(0.3),
-            overlayColor: color.withOpacity(0.3),
+            inactiveTrackColor: Colors.white.withValues(alpha:   0.3),
+            overlayColor: color.withValues(alpha:   0.3),
           ),
           child: Obx(
             () => Slider(
@@ -213,3 +211,5 @@ class LowPressureSetting extends StatelessWidget {
     );
   }
 }
+
+

@@ -59,6 +59,8 @@ class MqttController extends GetxController {
   var isPasswordCorrect = false.obs;
   var currentCardIndex = 0.obs;
   var isOilTemperatureOn = false.obs;
+  var isOilPressureVisible = false.obs; // Initially hidden
+  var isObscured=false.obs; //oil pressure
   MqttServerClient? client;
 
   @override

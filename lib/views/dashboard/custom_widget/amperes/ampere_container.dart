@@ -1,4 +1,5 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
+import 'package:app/utilz/App_dialog.dart';
 import 'package:app/views/dashboard/custom_widget/amperes/ampere_screen.dart';
 import 'package:app/views/dashboard/custom_widget/amperes/ampere_settings/ampere_setting.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class AmpereContainer extends StatelessWidget {
                   ),
                 ),
                 GestureDetector( onTap: (){
-                  Get.to(()=>  AmpereSetting());
+                    PasswordDialog().showPasswordDialog(AmpereSetting());
                 }, 
                   child: Icon(Icons.settings, color: Colors.white, size: Get.width * 0.07)),
               ],
