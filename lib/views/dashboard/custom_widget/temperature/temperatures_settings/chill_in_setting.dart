@@ -1,28 +1,21 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:app/controller/slider_controller/slider_controller.dart';
 
 class ChillInSetting extends StatelessWidget {
-  // final String title;
-  // final double currentTemp;
-  // final double currentHighTemp;
-  // final double currentLowTemp;
-
-  // final Function(double) onUpdate;
+  
 
   ChillInSetting({ Key? key,
-    // required this.title,
-    // required this.currentTemp,
-    // required this.currentHighTemp,
-    // required this.currentLowTemp,
-
-    // required this.onUpdate,
+    
   }) : super(key: key);
 
-  // final SliderController controller = Get.put(SliderController());
+ 
   final MqttController _mqttController = Get.find<MqttController>();
+ 
+
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +171,9 @@ class ChillInSetting extends StatelessWidget {
               divisions: 100,
               onChanged: (double value) {
                 _mqttController.updateChillInlp(value);
+                  
               },
+              
             ),
           ),
         ),

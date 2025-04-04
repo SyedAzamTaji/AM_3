@@ -1,10 +1,17 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class LowPressureSetting extends StatelessWidget {
   final MqttController _mqttController = Get.find<MqttController>();
+    final AudioPlayer _player = AudioPlayer();
+  bool alarmPlayed = false;
+
+  Future<void> _playAlarm() async {
+    await _player.play(AssetSource('beep.mp3'));
+  }
 
   @override
   Widget build(BuildContext context) {

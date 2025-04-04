@@ -29,7 +29,7 @@ class AmpereContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Amperes",
+                  "Currents",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class AmpereWidget extends StatelessWidget {
           Icon(Icons.electric_bolt, color: Colors.yellow, size: Get.width * 0.08), // Changed icon
           SizedBox(height: Get.height * 0.005),
           Text(
-            "$ampere AMP", 
+            "$ampere Amp", 
             style: TextStyle(
               fontSize: Get.width * 0.045,
               fontWeight: FontWeight.bold,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppDialogs {
+  
   void showErrorDialog(BuildContext context, String message) {
     showDialog(
       context: context,
@@ -21,11 +22,12 @@ class AppDialogs {
       },
     );
   }
- 
 }
 
-class PasswordDialog{
- void showPasswordDialog(Widget Page) {
+class PasswordDialog {
+  final RxBool isObscured = true.obs; // This will control the visibility of the password
+
+  void showPasswordDialog(Widget Page) {
     TextEditingController passwordController = TextEditingController();
 
     Get.defaultDialog(
@@ -34,23 +36,34 @@ class PasswordDialog{
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Enter Password",
+            child: Obx(
+              () => TextField(
+                controller: passwordController,
+                obscureText: isObscured.value,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter Password",
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isObscured.value ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      isObscured.value = !isObscured.value; // Toggle visibility
+                    },
+                  ),
+                ),
               ),
             ),
           ),
         ],
       ),
-      textConfirm: "Open",
+      textConfirm: "Ok",
       textCancel: "Cancel",
       confirmTextColor: Colors.white,
       onConfirm: () {
         if (passwordController.text == "1234") {
-          Get.back(); 
+          Get.back();
           Get.to(() => Page, transition: Transition.fade);
         } else {
           Get.snackbar(

@@ -43,7 +43,7 @@ class AmpereSetting extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Ampere Setting",
+                  "Current Setting",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,
@@ -122,7 +122,7 @@ class AmpereSetting extends StatelessWidget {
                 SizedBox(height: Get.height * 0.03),
 
                
-                _buildSlider("Low Ampere", Colors.blue),
+                // _buildSlider("Low Ampere", Colors.blue),
                 _buildSlider2("High Ampere", Colors.red),
               ],
             ),

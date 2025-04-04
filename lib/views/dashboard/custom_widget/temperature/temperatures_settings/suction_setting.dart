@@ -122,7 +122,7 @@ class SuctionSetting extends StatelessWidget {
 
                
                 _buildSlider("Low Temperature", Colors.blue),
-                _buildSlider2("High Temperature", Colors.red),
+                // _buildSlider2("High Temperature", Colors.red),
               ],
             ),
           ),

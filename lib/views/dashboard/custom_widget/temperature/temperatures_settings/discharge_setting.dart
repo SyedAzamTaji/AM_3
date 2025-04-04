@@ -121,7 +121,7 @@ class DischargeSetting extends StatelessWidget {
                 SizedBox(height: Get.height * 0.03),
 
                
-                _buildSlider("Low Temperature", Colors.blue),
+                // _buildSlider("Low Temperature", Colors.blue),
                 _buildSlider2("High Temperature", Colors.red),
               ],
             ),

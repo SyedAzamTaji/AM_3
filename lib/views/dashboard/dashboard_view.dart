@@ -9,6 +9,7 @@ import 'package:app/views/dashboard/custom_widget/pressure_cards.dart';
 import 'package:app/views/dashboard/custom_widget/pressure/pressure_container.dart';
 import 'package:app/views/dashboard/settings_screens/discharge_setting.dart';
 import 'package:app/views/dashboard/settings_screens/suction_setting.dart';
+import 'package:app/views/notification/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,19 +44,27 @@ class _DashboardState extends State<Dashboard> {
               child: Column(
                 children: [
                   AppBar(
-                    backgroundColor: Colors.green.shade700,
-                    elevation: 4,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(25),
-                      ),
-                    ),
-                    title: const Text(
-                      "Alert Master",
-                      style: TextStyle(fontSize: 26, color: Colors.white),
-                    ),
-                    centerTitle: true,
-                  ),
+  backgroundColor: Colors.green.shade700,
+  elevation: 4,
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.vertical(
+      bottom: Radius.circular(25),
+    ),
+  ),
+  title: const Text(
+    "Alert Master",
+    style: TextStyle(fontSize: 26, color: Colors.white),
+  ),
+  centerTitle: true,
+  actions: [
+    IconButton(
+      icon: const Icon(Icons.notifications, color: Colors.white),
+      onPressed: () {
+        Get.to(() => NotificationScreen()); 
+      },
+    ),
+  ],
+),
                   SizedBox(height: Get.height * 0.012),
                   Center(
                     child: 

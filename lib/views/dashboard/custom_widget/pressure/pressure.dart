@@ -46,7 +46,7 @@ class Pressures extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 onPressed: () {
-               log("butt");
+              
                     controller.isObscured.value = !controller.isObscured.value; // Toggle visibility
               },
                ),
@@ -109,7 +109,7 @@ class Pressures extends StatelessWidget {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          'PRESSURES',
+                          'Pressures',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,color: Colors.white
@@ -129,8 +129,8 @@ class Pressures extends StatelessWidget {
                 },
                   child: Obx(
                     ()=> Pressurewidget(
-                      title: "SUCTION PRESSURE",
-                      high: controller.psig1setlow.value.toString(),
+                      title: "SUCTION",
+                      // high: controller.psig1setlow.value.toString(),
                       low: controller.psig1sethigh.value.toString(),
                       setpoint: controller.psig1.value.toString(),
                     ),
@@ -142,9 +142,9 @@ class Pressures extends StatelessWidget {
                 },
                   child: Obx(
                     ()=> Pressurewidget(
-                      title: "DISCHARGE PRESSURE",
+                      title: "DISCHARGE",
                       high: controller.psig2setlow.value.toString(),
-                      low: controller.psig2sethigh.value.toString(),
+                      // low: controller.psig2sethigh.value.toString(),
                       setpoint: controller.psig2.value.toString(),
                     ),
                   ),
@@ -163,8 +163,8 @@ class Pressures extends StatelessWidget {
                     },
                       child: Obx(
                           () => Pressurewidget(
-                            title: "OIL\nPRESSURE",
-                            high: controller.psig3setlow.value.toString(),
+                            title: "OIL",
+                            // high: controller.psig3setlow.value.toString(),
                             low: controller.psig3sethigh.value.toString(),
                             setpoint: controller.psig3.value.toString(),
                           ),

@@ -50,9 +50,9 @@ class PressureContainer extends StatelessWidget {
               ()=> Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: PressureHomeWidget(title: "Suction Pressure", pressure:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
-                  Expanded(child: PressureHomeWidget(title: "Discharge Pressure", pressure: _mqttController.psig2.value)),SizedBox(width: Get.width*0.01,),
-                  Expanded(child: PressureHomeWidget(title: "Oil\nPressure", pressure: _mqttController.psig3.value)),
+                  Expanded(child: PressureHomeWidget(title: "Suction", pressure:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
+                  Expanded(child: PressureHomeWidget(title: "Discharge", pressure: _mqttController.psig2.value)),SizedBox(width: Get.width*0.01,),
+                  Expanded(child: PressureHomeWidget(title: "Oil", pressure: _mqttController.psig3.value)),
                 ],
               ),
             ),
@@ -96,7 +96,7 @@ class PressureHomeWidget extends StatelessWidget {
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: Get.width * 0.04,
+                fontSize: Get.width * 0.045,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

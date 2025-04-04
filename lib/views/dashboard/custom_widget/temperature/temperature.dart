@@ -29,13 +29,13 @@ class Temperature extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.thermostat,
+                    Icons.settings,
                     size: 30,
-                    color: Colors.red,
+                    color: Colors.white,
                   ),
                   SizedBox(width: 10),
                   Text(
-                    'TEMPERATURES',
+                    'Temperatures',
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -84,8 +84,9 @@ class Temperature extends StatelessWidget {
                   ()=> TemperatureWidget(
                       title: "SUCTION",
                       setpoint: _mqttController.temp3.value.toString(),
-                      high:_mqttController.temp3setlow.value.toString(),
-                      low: _mqttController.temp3sethigh.value.toString()),
+                      // high:_mqttController.temp3setlow.value.toString(),
+                      low: _mqttController.temp3sethigh.value.toString()
+                      ),
                 ),
               ),
               GestureDetector(onTap: (){
@@ -96,7 +97,8 @@ class Temperature extends StatelessWidget {
                       title: "DISCHARGE",
                       setpoint: _mqttController.temp4.value.toString(),
                       high: _mqttController.temp4setlow.value.toString(),
-                      low: _mqttController.temp4sethigh.value.toString()),
+                      // low: _mqttController.temp4sethigh.value.toString()
+                      ),
                 ),
               )
             ],
