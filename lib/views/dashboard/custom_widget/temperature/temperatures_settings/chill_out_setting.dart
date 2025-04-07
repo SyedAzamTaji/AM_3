@@ -5,23 +5,13 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:app/controller/slider_controller/slider_controller.dart';
 
 class ChillOutSetting extends StatelessWidget {
-  // final String title;
-  // final double currentTemp;
-  // final double currentHighTemp;
-  // final double currentLowTemp;
-
-  // final Function(double) onUpdate;
+  
 
   ChillOutSetting({ Key? key,
-    // required this.title,
-    // required this.currentTemp,
-    // required this.currentHighTemp,
-    // required this.currentLowTemp,
-
-    // required this.onUpdate,
+  
   }) : super(key: key);
 
-  // final SliderController controller = Get.put(SliderController());
+  
   final MqttController _mqttController = Get.find<MqttController>();
 
   @override
@@ -174,14 +164,10 @@ class ChillOutSetting extends StatelessWidget {
             () => Slider(
               value: _mqttController.temp2sethigh.value.toDouble(),
               min: 0,
-              max:  _mqttController.temp2setlow.value-1,
+              max: 100,
               onChanged: (double value) {
-                if (_mqttController.temp2sethigh.value<_mqttController.temp2setlow.value) {
-                  
                 _mqttController.updateChillOutlp(value);
-                }else{
-                  _mqttController.temp2sethigh.value=_mqttController.temp2setlow.value-1;
-                }
+               
               },
             ),
           ),
@@ -232,19 +218,10 @@ class ChillOutSetting extends StatelessWidget {
           child: Obx(
             () => Slider(
               value: _mqttController.temp2setlow.value.toDouble(),
-              min: _mqttController.temp2sethigh.value+1,
+              min: 0,
               max: 100,
               onChanged: (double value) {
-
-
-  if (_mqttController.temp2setlow.value>_mqttController.temp2sethigh.value) {
-                  
-                _mqttController.updateChillOuthp(value);
-               
-                }else{
-                  _mqttController.temp2setlow.value=_mqttController.temp2sethigh.value+1;
-                }
-
+  _mqttController.updateChillOuthp(value);
               },
             ),
           ),

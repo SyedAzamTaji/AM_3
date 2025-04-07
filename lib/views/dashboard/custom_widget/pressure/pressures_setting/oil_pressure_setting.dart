@@ -51,9 +51,7 @@ class OilPressureSetting extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: Get.height * 0.02),
-
                 SizedBox(height: Get.height * 0.02),
-
                 Expanded(
                   child: SleekCircularSlider(
                     appearance: CircularSliderAppearance(
@@ -130,7 +128,6 @@ class OilPressureSetting extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildSlider(String title, Color color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +171,7 @@ class OilPressureSetting extends StatelessWidget {
             () => Slider(
               value: _mqttController.psig3sethigh.value.toDouble(),
               min: 0,
-              max: 100,
+              max: 1000,
               divisions: 100,
               onChanged: (double value) {
                 _mqttController.updateOilPressurelp(value);

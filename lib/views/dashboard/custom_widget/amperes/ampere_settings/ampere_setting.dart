@@ -6,25 +6,9 @@ import 'package:app/controller/slider_controller/slider_controller.dart';
 
 //yaha phase 1 tha change hogaya hay sb phase ek hi ma agay hay.
 class AmpereSetting extends StatelessWidget {
-  // final String title;
-  // final double currentTemp;
-  // final double currentHighTemp;
-  // final double currentLowTemp;
-
-  // final Function(double) onUpdate;
-
   AmpereSetting({ Key? key,
-    // required this.title,
-    // required this.currentTemp,
-    // required this.currentHighTemp,
-    // required this.currentLowTemp,
-
-    // required this.onUpdate,
   }) : super(key: key);
-
-  // final SliderController controller = Get.put(SliderController());
   final MqttController _mqttController = Get.find<MqttController>();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

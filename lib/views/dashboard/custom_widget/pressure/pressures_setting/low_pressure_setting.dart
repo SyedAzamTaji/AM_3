@@ -151,7 +151,7 @@ class LowPressureSetting extends StatelessWidget {
             () => Slider(
               value: _mqttController.psig1sethigh.value.toDouble(),
               min: 0,
-              max: 100,
+              max: 1000,
               divisions: 100,
               onChanged: (double value) {
                 _mqttController.updateLowPressurelp(value);

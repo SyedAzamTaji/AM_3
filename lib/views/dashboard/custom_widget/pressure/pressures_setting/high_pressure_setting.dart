@@ -5,25 +5,9 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:app/controller/slider_controller/slider_controller.dart';
 
 class HighPressureSetting extends StatelessWidget {
-  // final String title;
-  // final double currentTemp;
-  // final double currentHighTemp;
-  // final double currentLowTemp;
-
-  // final Function(double) onUpdate;
-
   HighPressureSetting({ Key? key,
-    // required this.title,
-    // required this.currentTemp,
-    // required this.currentHighTemp,
-    // required this.currentLowTemp,
-
-    // required this.onUpdate,
   }) : super(key: key);
-
-  // final SliderController controller = Get.put(SliderController());
   final MqttController _mqttController = Get.find<MqttController>();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -229,7 +213,7 @@ class HighPressureSetting extends StatelessWidget {
             () => Slider(
               value: _mqttController.psig2setlow.value.toDouble(),
               min: 0,
-              max: 100,
+              max: 1000,
               divisions: 100,
               onChanged: (double value) {
                 _mqttController.updateHighPressurehp(value);

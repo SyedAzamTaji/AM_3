@@ -1,22 +1,34 @@
+import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Pressurewidget extends StatelessWidget {
+  // final MqttController mqttController = Get.find<MqttController>();
+
   final String title;
   final String setpoint;
   final String? high;
   final String? low;
-
-  const Pressurewidget({
+  final Color Function(double pressure)? getColorLogic;
+ 
+   Pressurewidget({
     super.key,
     required this.title,
     required this.setpoint,
     this.high,
-    this.low,
+    this.low, this.getColorLogic, 
+
   });
 
   @override
   Widget build(BuildContext context) {
+    double pressure = double.parse(setpoint);
+Color pressureColor = getColorLogic != null
+    ? getColorLogic!(pressure)
+    : Colors.white;
+   
+//     double pressure = double.parse(setpoint); 
+// Color pressureColor = mqttController.psig1.value >= mqttController.psig1sethigh.value ? Colors.red : Colors.white;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -40,11 +52,13 @@ class Pressurewidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: Get.height * 0.042),
+            SizedBox(height: Get.height * 0.038),
             Stack(
               alignment: Alignment.center,
               children: [
                 SizedBox(
+                  height: Get.height*0.052,
+                  width: Get.width*0.12,
                   child: CircularProgressIndicator(
                     value: (double.parse(setpoint) / 1000),
                     strokeWidth: 4,
@@ -55,10 +69,10 @@ class Pressurewidget extends StatelessWidget {
                 ),
                 Text(
                   "${(double.parse(setpoint)).toInt()} P",
-                  style: const TextStyle(
+                  style:  TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: pressureColor,
                   ),
                 ),
               ],
@@ -70,7 +84,7 @@ class Pressurewidget extends StatelessWidget {
                 height: Get.height * 0.055,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Colors.green.withOpacity(0.8),
+                  color: Colors.green.withValues(alpha:0.8),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),

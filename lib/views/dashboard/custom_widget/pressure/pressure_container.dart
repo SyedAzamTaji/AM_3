@@ -50,9 +50,9 @@ class PressureContainer extends StatelessWidget {
               ()=> Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: PressureHomeWidget(title: "Suction", pressure:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
-                  Expanded(child: PressureHomeWidget(title: "Discharge", pressure: _mqttController.psig2.value)),SizedBox(width: Get.width*0.01,),
-                  Expanded(child: PressureHomeWidget(title: "Oil", pressure: _mqttController.psig3.value)),
+                  Expanded(child: PressureHomeWidget(title: "Suction", pressure:  _mqttController.psig1.value,userSetLow:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
+                  Expanded(child: PressureHomeWidget(title: "Discharge", pressure: _mqttController.psig2.value,userSetLow: _mqttController.psig2.value,)),SizedBox(width: Get.width*0.01,),
+                  Expanded(child: PressureHomeWidget(title: "Oil", pressure: _mqttController.psig3.value,userSetLow: _mqttController.psig3.value,)),
                 ],
               ),
             ),
@@ -62,24 +62,19 @@ class PressureContainer extends StatelessWidget {
     );
   }
 }
- 
-
-
-
 class PressureHomeWidget extends StatelessWidget {
   final String title;
   final double pressure;
-
+    final double userSetLow;
   const PressureHomeWidget({
     required this.title,
     required this.pressure,
-    Key? key,
+    Key? key, required this.userSetLow,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+     Color pressureColor = pressure < userSetLow ? Colors.red : Colors.white;
     return Container(
-      
       height: Get.height * 0.15, 
       width: Get.width * 0.29,
       decoration: BoxDecoration(
@@ -89,11 +84,10 @@ class PressureHomeWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-         
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
             child: Text(
-              title,
+ title,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: Get.width * 0.045,
@@ -102,10 +96,7 @@ class PressureHomeWidget extends StatelessWidget {
               ),
             ),
           ),
-
           SizedBox(height: Get.height * 0.015),
-
-        
           Icon(Icons.speed, color: Colors.red, size: Get.width * 0.08),
           SizedBox(height: Get.height * 0.005),
           Text(
@@ -113,7 +104,7 @@ class PressureHomeWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: Get.width * 0.045,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: pressureColor,
             ),
           ),
         ],
