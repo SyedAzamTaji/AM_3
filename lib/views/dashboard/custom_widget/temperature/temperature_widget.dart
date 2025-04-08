@@ -5,7 +5,7 @@ class TemperatureWidget extends StatelessWidget {
   final String setpoint;
   final String? high; // Nullable now
   final String? low;  // Nullable now
-  final Color Function()? getColorLogic;
+  final Color Function(int temp)? getColorLogic;
   const TemperatureWidget({
     super.key,
     required this.title,
@@ -16,8 +16,11 @@ class TemperatureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      double setpointVlaue=double.parse(setpoint);
-      Color setpointTextColor=setpointVlaue>=35?Colors.red:const Color.fromARGB(255, 245, 172, 172);
+      int temp = int.parse(setpoint);
+Color pressureColor = getColorLogic != null
+    ? getColorLogic!(temp)
+    : Colors.white;
+      
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -61,7 +64,7 @@ class TemperatureWidget extends StatelessWidget {
                   style:  TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: setpointTextColor,
+                    color: pressureColor,
                   ),
                 ),
               ],

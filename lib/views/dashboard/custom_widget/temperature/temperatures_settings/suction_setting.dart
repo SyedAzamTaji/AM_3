@@ -5,23 +5,13 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:app/controller/slider_controller/slider_controller.dart';
 
 class SuctionSetting extends StatelessWidget {
-  // final String title;
-  // final double currentTemp;
-  // final double currentHighTemp;
-  // final double currentLowTemp;
-
-  // final Function(double) onUpdate;
+  
 
   SuctionSetting({ Key? key,
-    // required this.title,
-    // required this.currentTemp,
-    // required this.currentHighTemp,
-    // required this.currentLowTemp,
-
-    // required this.onUpdate,
+  
   }) : super(key: key);
 
-  // final SliderController controller = Get.put(SliderController());
+  
   final MqttController _mqttController = Get.find<MqttController>();
 
   @override
@@ -42,7 +32,7 @@ class SuctionSetting extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Suction Setting",
+                  "Suction Temperature",
                   style: TextStyle(
                     fontSize: Get.width * 0.06,
                     fontWeight: FontWeight.bold,

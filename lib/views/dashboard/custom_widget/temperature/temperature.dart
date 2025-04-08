@@ -4,7 +4,6 @@ import 'package:app/views/dashboard/custom_widget/temperature/temperatures_setti
 import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/chill_out_setting.dart';
 import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/discharge_setting.dart';
 import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/suction_setting.dart';
-import 'package:app/views/dashboard/settings_screens/discharge_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -49,56 +48,86 @@ class Temperature extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(onTap: (){
-                Get.to(()=> ChillInSetting());
-              },
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => ChillInSetting());
+                },
                 child: Obx(
-                  ()=> TemperatureWidget(
-                      title: "RETURN",
-                      setpoint: _mqttController.temp1.value.toString(),
-                      high: _mqttController.temp1setlow.value.toString(),
-                      low: _mqttController.temp1sethigh.value.toString(),),
+                  () => TemperatureWidget(
+                    title: "RETURN",
+                    setpoint: _mqttController.temp1.value.toString(),
+                    high: _mqttController.temp1setlow.value.toString(),
+                    low: _mqttController.temp1sethigh.value.toString(),
+                    getColorLogic: (pressure) =>
+                        (_mqttController.temp1sethigh.value >=
+                                    _mqttController.temp1.value ||
+                                _mqttController.temp1setlow.value <=
+                                    _mqttController.temp1.value)
+                            ? Colors.red
+                            : Colors.white,
+                  ),
                 ),
               ),
-              GestureDetector(onTap: (){
-                     Get.to(()=> ChillOutSetting());
-              },
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => ChillOutSetting());
+                },
                 child: Obx(
-                  ()=> TemperatureWidget(
-                      title: "SUPPLY",
-                      setpoint: _mqttController.temp2.value.toString(),
-                      high: _mqttController.temp2setlow.value.toString(),
-                      low: _mqttController.temp2sethigh.value.toString(),),
+                  () => TemperatureWidget(
+                    title: "SUPPLY",
+                    setpoint: _mqttController.temp2.value.toString(),
+                    high: _mqttController.temp2setlow.value.toString(),
+                    low: _mqttController.temp2sethigh.value.toString(), getColorLogic: (pressure) =>
+
+                        (_mqttController.temp2sethigh.value >=
+                                    _mqttController.temp2.value ||
+                                _mqttController.temp2setlow.value <=
+                                    _mqttController.temp2.value)
+                            ? Colors.red
+                            : Colors.white,
+                  ),
                 ),
               )
             ],
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(onTap: (){
-                     Get.to(()=> SuctionSetting());
-              },
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => SuctionSetting());
+                },
                 child: Obx(
-                  ()=> TemperatureWidget(
-                      title: "SUCTION",
-                      setpoint: _mqttController.temp3.value.toString(),
-                      // high:_mqttController.temp3setlow.value.toString(),
-                      low: _mqttController.temp3sethigh.value.toString()
-                      ),
+                  () => TemperatureWidget(
+                    title: "SUCTION",
+                    setpoint: _mqttController.temp3.value.toString(),
+                    // high:_mqttController.temp3setlow.value.toString(),
+                    low: _mqttController.temp3sethigh.value.toString(),
+                    getColorLogic: (pressure) => _mqttController.temp3.value <=
+                            _mqttController.temp3sethigh.value
+                        ? Colors.red
+                        : Colors.white,
+                  ),
                 ),
               ),
-              GestureDetector(onTap: (){
-                     Get.to(()=> DischargeSetting());
-              },
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => DischargeSetting());
+                },
                 child: Obx(
-                  ()=> TemperatureWidget(
-                      title: "DISCHARGE",
-                      setpoint: _mqttController.temp4.value.toString(),
-                      high: _mqttController.temp4setlow.value.toString(),
-                      // low: _mqttController.temp4sethigh.value.toString()
-                      ),
+                  () => TemperatureWidget(
+                    title: "DISCHARGE",
+                    setpoint: _mqttController.temp4.value.toString(),
+                    high: _mqttController.temp4setlow.value.toString(),
+                    getColorLogic: (pressure) => _mqttController.temp4.value >=
+                            _mqttController.temp4setlow.value
+                        ? Colors.red
+                        : Colors.white,
+                    // low: _mqttController.temp4sethigh.value.toString()
+                  ),
                 ),
               )
             ],

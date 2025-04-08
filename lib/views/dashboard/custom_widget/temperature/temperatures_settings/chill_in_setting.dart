@@ -18,98 +18,100 @@ class ChillInSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color(0xFF002B36), Color(0xFF005662)],
+      child: Obx(
+        ()=> Scaffold(
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFF002B36), Color(0xFF005662)],
+              ),
             ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(Get.width * 0.08),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Return Setting",
-                  style: TextStyle(
-                    fontSize: Get.width * 0.06,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-                SizedBox(height: Get.height * 0.02),
-
-                SizedBox(height: Get.height * 0.02),
-
-                Expanded(
-                  child: SleekCircularSlider(
-                    appearance: CircularSliderAppearance(
-                      size: Get.width * 0.75,
-                      startAngle: 150,
-                      angleRange: 240,
-                      customWidths: CustomSliderWidths(
-                        progressBarWidth: Get.width * 0.015,
-                        trackWidth: Get.width * 0.015,
-                        // handlerSize: Get.width * 0.03,
-                      ),
-                      customColors: CustomSliderColors(
-                        trackColor: Colors.white.withValues(alpha: 0.3),
-                        progressBarColors: [
-                          Colors.green,
-                          Colors.lightGreenAccent
-                        ],
-                        dotColor: Colors.white,
-                      ),
+            child: Padding(
+              padding: EdgeInsets.all(Get.width * 0.08),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Return Temperature",
+                    style: TextStyle(
+                      fontSize: Get.width * 0.06,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 1.2,
                     ),
-                    min: 0,
-                    max: 100,
-                    initialValue: _mqttController.temp1.value.toDouble(),
-                    onChange: null,
-                    
-                    innerWidget: (double value) => Center(
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.3),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.greenAccent.withValues(alpha: 0.8),
-                              blurRadius: 15,
-                              spreadRadius: 2,
-                            ),
-                          ],
+                  ),
+                  SizedBox(height: Get.height * 0.02),
+        
+                  SizedBox(height: Get.height * 0.02),
+        
+                  Expanded(
+                    child: SleekCircularSlider(
+                      appearance: CircularSliderAppearance(
+                        size: Get.width * 0.75,
+                        startAngle: 150,
+                        angleRange: 240,
+                        customWidths: CustomSliderWidths(
+                          progressBarWidth: Get.width * 0.015,
+                          trackWidth: Get.width * 0.015,
+                          // handlerSize: Get.width * 0.03,
                         ),
-                        child: Text(
-                          "${_mqttController.temp1.value.toDouble().toStringAsFixed(0)}°C",
-                          style: TextStyle(
-                            fontSize: Get.width * 0.07,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            letterSpacing: 1.2,
-                            shadows: [
-                              Shadow(
+                        customColors: CustomSliderColors(
+                          trackColor: Colors.white.withValues(alpha: 0.3),
+                          progressBarColors: [
+                            Colors.green,
+                            Colors.lightGreenAccent
+                          ],
+                          dotColor: Colors.white,
+                        ),
+                      ),
+                      min: 0,
+                      max: 100,
+                      initialValue: _mqttController.temp1.value.toDouble(),
+                      onChange: null,
+                      
+                      innerWidget: (double value) => Center(
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.3),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.greenAccent.withValues(alpha: 0.8),
                                 blurRadius: 15,
-                                color: Colors.greenAccent,
+                                spreadRadius: 2,
                               ),
                             ],
+                          ),
+                          child: Text(
+                            "${_mqttController.temp1.value.toDouble().toStringAsFixed(0)}°C",
+                            style: TextStyle(
+                              fontSize: Get.width * 0.07,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 1.2,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 15,
+                                  color: Colors.greenAccent,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-
-                SizedBox(height: Get.height * 0.03),
-
-               
-                _buildSlider("Low Temperature", Colors.blue),
-                _buildSlider2("High Temperature", Colors.red),
-              ],
+        
+                  SizedBox(height: Get.height * 0.03),
+        
+                 
+                  _buildSlider("Low Temperature", Colors.blue),
+                  _buildSlider2("High Temperature", Colors.red),
+                ],
+              ),
             ),
           ),
         ),
