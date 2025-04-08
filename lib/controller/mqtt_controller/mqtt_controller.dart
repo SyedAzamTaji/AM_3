@@ -200,7 +200,6 @@ class MqttController extends GetxController {
       temp3.value = int.tryParse(jsonMap['value3']?.toString() ?? '') ?? 0;
       temp4.value = int.tryParse(jsonMap['value4']?.toString() ?? '') ?? 0;
 
-      // Handle decimal values as double
       psig1.value = double.tryParse(jsonMap['value5']?.toString() ?? '') ?? 0.0;
       psig2.value = double.tryParse(jsonMap['value6']?.toString() ?? '') ?? 0.0;
       psig3.value = double.tryParse(jsonMap['value7']?.toString() ?? '') ?? 0.0;

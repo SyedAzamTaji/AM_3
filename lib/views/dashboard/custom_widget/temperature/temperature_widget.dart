@@ -5,12 +5,13 @@ class TemperatureWidget extends StatelessWidget {
   final String setpoint;
   final String? high; // Nullable now
   final String? low;  // Nullable now
+  final Color Function()? getColorLogic;
   const TemperatureWidget({
     super.key,
     required this.title,
     required this.setpoint,
     this.high,
-    this.low,
+    this.low, this.getColorLogic,
   });
 
   @override

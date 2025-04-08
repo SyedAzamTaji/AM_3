@@ -1,6 +1,5 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:app/utilz/App_dialog.dart';
-import 'package:app/views/dashboard/custom_widget/amperes/ampere_screen.dart';
 import 'package:app/views/dashboard/custom_widget/amperes/ampere_settings/ampere_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,10 +65,11 @@ class AmpereContainer extends StatelessWidget {
 
 
 class AmpereWidget extends StatelessWidget {
+   final MqttController _mqttController = Get.find<MqttController>();
   final String title;
   final int ampere;
 
-  const AmpereWidget({
+   AmpereWidget({
     required this.title,
     required this.ampere,
     Key? key,
@@ -77,6 +77,7 @@ class AmpereWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       height: Get.height * 0.15,
       width: Get.width * 0.29,
@@ -100,19 +101,24 @@ class AmpereWidget extends StatelessWidget {
               ),
             ),
           ),
-
           SizedBox(height: Get.height * 0.015),
 
-          Icon(Icons.electric_bolt, color: Colors.yellow, size: Get.width * 0.08), // Changed icon
+          Icon(Icons.electric_bolt, color: Colors.yellow, size: Get.width * 0.08), 
           SizedBox(height: Get.height * 0.005),
-          Text(
-            "$ampere Amp", 
-            style: TextStyle(
-              fontSize: Get.width * 0.045,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
+         Obx(() {
+   Color ampColor = _mqttController.amp1low.value > _mqttController.amp2.value
+      ? Colors.red
+      : Colors.white;
+
+  return Text(
+    "$ampere Amp", 
+    style: TextStyle(
+      fontSize: Get.width * 0.045,
+      fontWeight: FontWeight.bold,
+      color: ampColor,
+    ),
+  );
+})
         ],
       ),
     );

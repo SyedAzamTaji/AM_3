@@ -5,24 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PressureContainer extends StatelessWidget {
-   final MqttController _mqttController=Get.find<MqttController>();
-   PressureContainer({Key? key}) : super(key: key);
-
+  final MqttController _mqttController = Get.find<MqttController>();
+  PressureContainer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(Get.width * 0.02),
       child: Container(
         width: Get.width * 0.95,
-        height: Get.height * 0.24, 
+        height: Get.height * 0.24,
         decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha:   0.3),
+          color: Colors.black.withValues(alpha: 0.3),
           borderRadius: BorderRadius.circular(Get.width * 0.03),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-          
             Padding(
               padding: EdgeInsets.all(Get.width * 0.03),
               child: Row(
@@ -36,23 +34,53 @@ class PressureContainer extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  GestureDetector(onTap: (){
-                   PasswordDialog().showPasswordDialog(Pressures());
-                   
-                  },  
-                    child: Icon(Icons.settings, color: Colors.white, size: Get.width * 0.07)),
+                  GestureDetector(
+                      onTap: () {
+                        PasswordDialog().showPasswordDialog(Pressures());
+                      },
+                      child: Icon(Icons.settings,
+                          color: Colors.white, size: Get.width * 0.07)),
                 ],
               ),
             ),
             SizedBox(height: Get.height * 0.01),
-
             Obx(
-              ()=> Row(
+              () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: PressureHomeWidget(title: "Suction", pressure:  _mqttController.psig1.value,userSetLow:  _mqttController.psig1.value,)),SizedBox(width: Get.width*0.01,),
-                  Expanded(child: PressureHomeWidget(title: "Discharge", pressure: _mqttController.psig2.value,userSetLow: _mqttController.psig2.value,)),SizedBox(width: Get.width*0.01,),
-                  Expanded(child: PressureHomeWidget(title: "Oil", pressure: _mqttController.psig3.value,userSetLow: _mqttController.psig3.value,)),
+                  Expanded(
+                      child: PressureHomeWidget(
+                    title: "Suction",
+                    pressure: _mqttController.psig1.value,
+                    userSetLow: _mqttController.psig1.value, getColorLogic: (pressure) => _mqttController.psig1.value >=
+                                _mqttController.psig1sethigh.value
+                            ? Colors.red
+                            : Colors.white
+                  )),
+                  SizedBox(
+                    width: Get.width * 0.01,
+                  ),
+                  Expanded(
+                      child: PressureHomeWidget(
+                    title: "Discharge",
+                    pressure: _mqttController.psig2.value,
+                    userSetLow: _mqttController.psig2.value,getColorLogic: (pressure) => _mqttController.psig2.value <=
+                                _mqttController.psig2setlow.value
+                            ? Colors.red
+                            : Colors.white ,
+                  )),
+                  SizedBox(
+                    width: Get.width * 0.01,
+                  ),
+                  Expanded(
+                      child: PressureHomeWidget(
+                    title: "Oil",
+                    pressure: _mqttController.psig3.value,
+                    userSetLow: _mqttController.psig3.value, getColorLogic: (pressure) => _mqttController.psig3.value >=
+                                _mqttController.psig3sethigh.value
+                            ? Colors.red
+                            : Colors.white,
+                  )),
                 ],
               ),
             ),
@@ -62,24 +90,32 @@ class PressureContainer extends StatelessWidget {
     );
   }
 }
+
 class PressureHomeWidget extends StatelessWidget {
   final String title;
   final double pressure;
-    final double userSetLow;
+  final double userSetLow;
+  final Color Function(double pressure)? getColorLogic;
   const PressureHomeWidget({
     required this.title,
     required this.pressure,
-    Key? key, required this.userSetLow,
+    Key? key,
+    required this.userSetLow,
+    this.getColorLogic,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-     Color pressureColor = pressure < userSetLow ? Colors.red : Colors.white;
+    double psi = pressure;
+    Color pressureColor =
+        getColorLogic != null ? getColorLogic!(psi) : Colors.white;
+
+    //  Color pressureColor = pressure < userSetLow ? Colors.red : Colors.white;
     return Container(
-      height: Get.height * 0.15, 
+      height: Get.height * 0.15,
       width: Get.width * 0.29,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Get.width * 0.03),
-        color: Colors.green.withValues( alpha:   0.2),
+        color: Colors.green.withValues(alpha: 0.2),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +123,7 @@ class PressureHomeWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
             child: Text(
- title,
+              title,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: Get.width * 0.045,

@@ -1,9 +1,7 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:app/controller/slider_controller/slider_controller.dart';
 
 class ChillInSetting extends StatelessWidget {
   
@@ -71,12 +69,7 @@ class ChillInSetting extends StatelessWidget {
                     max: 100,
                     initialValue: _mqttController.temp1.value.toDouble(),
                     onChange: null,
-                    //  (double value) {
-                    //   _mqttController.updateSuctionCurrent(value);
-                    // },
-                    // onChangeEnd: (double value) {
-                    //   _mqttController.buildJsonPayload;
-                    // },
+                    
                     innerWidget: (double value) => Center(
                       child: Container(
                         padding: EdgeInsets.all(10),

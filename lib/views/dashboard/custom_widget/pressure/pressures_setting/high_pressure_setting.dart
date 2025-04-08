@@ -35,9 +35,6 @@ class HighPressureSetting extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: Get.height * 0.02),
-
-                // SizedBox(height: Get.height * 0.02),
-
                 Expanded(
                   child: SleekCircularSlider(
                     appearance: CircularSliderAppearance(
@@ -62,12 +59,6 @@ class HighPressureSetting extends StatelessWidget {
                     max: 1000,
                     initialValue: _mqttController.psig2.value.toDouble(),
                     onChange: null,
-                    //  (double value) {
-                    //   _mqttController.updateSuctionCurrent(value);
-                    // },
-                    // onChangeEnd: (double value) {
-                    //   _mqttController.buildJsonPayload;
-                    // },
                     innerWidget: (double value) => Center(
                       child: Container(
                         padding: EdgeInsets.all(10),
@@ -101,10 +92,7 @@ class HighPressureSetting extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(height: Get.height * 0.03),
-
-               
                 // _buildSlider("Low Pressure", Colors.blue),
                 _buildSlider2("High Pressure", Colors.red),
               ],
