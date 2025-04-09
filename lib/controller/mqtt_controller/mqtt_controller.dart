@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:app/notification_service/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -45,6 +46,7 @@ class MqttController extends GetxController {
   var amp2low = 25.obs; //phase 2 ko high slider
   var amp3low = 15.obs; //phase 3 ko high slider
   var comp1status = 1.obs;
+  
 
   RxString mqttBroker = 'a31qubhv0f0qec-ats.iot.eu-north-1.amazonaws.com'.obs;
   RxInt port = 8883.obs;
@@ -59,9 +61,41 @@ class MqttController extends GetxController {
   var isPasswordCorrect = false.obs;
   var currentCardIndex = 0.obs;
   var isOilTemperatureOn = false.obs;
-  var isOilPressureVisible = false.obs; // Initially hidden
-  var isObscured=false.obs; //oil pressure
+  var isOilPressureVisible = false.obs; 
+  var isObscured=false.obs; 
   MqttServerClient? client;
+
+//notification
+
+  var notifications = <String>[].obs;
+   void updateTemp(int newTemp) {
+    temp1.value = newTemp;
+    if (newTemp > temp1setlow.value || newTemp < temp1sethigh.value) {
+      String msg = "Temperature Alert: $newTemp°C";
+      NotificationService.showNotification(title: "Temperature Alert", body: msg);
+      notifications.add(msg);
+    }
+  }
+
+  void updatePressure(double newPressure) {
+    psig1.value = newPressure;
+    if (newPressure > psig1sethigh.value || newPressure < psig1.value) {
+      String msg = "Pressure Alert: $newPressure PSI";
+      NotificationService.showNotification(title: "Pressure Alert", body: msg);
+      notifications.add(msg);
+    }
+  }
+
+  void updateAmpere(int newAmpere) {
+    amp2.value = newAmpere;
+    if (newAmpere > amp1low.value || newAmpere < amp2.value) {
+      String msg = "Ampere Alert: $newAmpere A";
+      NotificationService.showNotification(title: "Ampere Alert", body: msg);
+      notifications.add(msg);
+    }
+  }
+
+  //notification
 
   @override
   void onInit() {
