@@ -3,25 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class ChillInSetting extends StatelessWidget {
-  
-
-  ChillInSetting({ Key? key,
-    
-  }) : super(key: key);
-
- 
+class ReturnSetting extends StatelessWidget {
+  ReturnSetting({
+    super.key,
+  });
   final MqttController _mqttController = Get.find<MqttController>();
- 
-
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Obx(
-        ()=> Scaffold(
+        () => Scaffold(
           body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -34,7 +28,7 @@ class ChillInSetting extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Return Temperature",
+                    "Return Setting",
                     style: TextStyle(
                       fontSize: Get.width * 0.06,
                       fontWeight: FontWeight.bold,
@@ -43,9 +37,7 @@ class ChillInSetting extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: Get.height * 0.02),
-        
                   SizedBox(height: Get.height * 0.02),
-        
                   Expanded(
                     child: SleekCircularSlider(
                       appearance: CircularSliderAppearance(
@@ -70,16 +62,16 @@ class ChillInSetting extends StatelessWidget {
                       max: 100,
                       initialValue: _mqttController.temp1.value.toDouble(),
                       onChange: null,
-                      
                       innerWidget: (double value) => Center(
                         child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: Colors.black.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.greenAccent.withValues(alpha: 0.8),
+                                color:
+                                    Colors.greenAccent.withValues(alpha: 0.8),
                                 blurRadius: 15,
                                 spreadRadius: 2,
                               ),
@@ -92,7 +84,7 @@ class ChillInSetting extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               letterSpacing: 1.2,
-                              shadows: [
+                              shadows: const [
                                 Shadow(
                                   blurRadius: 15,
                                   color: Colors.greenAccent,
@@ -104,10 +96,7 @@ class ChillInSetting extends StatelessWidget {
                       ),
                     ),
                   ),
-        
                   SizedBox(height: Get.height * 0.03),
-        
-                 
                   _buildSlider("Low Temperature", Colors.blue),
                   _buildSlider2("High Temperature", Colors.red),
                 ],
@@ -166,9 +155,7 @@ class ChillInSetting extends StatelessWidget {
               divisions: 100,
               onChanged: (double value) {
                 _mqttController.updateChillInlp(value);
-                  
               },
-              
             ),
           ),
         ),

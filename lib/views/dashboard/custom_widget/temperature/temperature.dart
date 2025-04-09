@@ -1,7 +1,7 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:app/views/dashboard/custom_widget/temperature/temperature_widget.dart';
-import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/chill_in_setting.dart';
-import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/chill_out_setting.dart';
+import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/return_setting.dart';
+import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/supply_setting.dart';
 import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/discharge_setting.dart';
 import 'package:app/views/dashboard/custom_widget/temperature/temperatures_settings/suction_setting.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class Temperature extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.to(() => ChillInSetting());
+                  Get.to(() => ReturnSetting());
                 },
                 child: Obx(
                   () => TemperatureWidget(
@@ -70,15 +70,15 @@ class Temperature extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => ChillOutSetting());
+                  Get.to(() => SupplySetting());
                 },
                 child: Obx(
                   () => TemperatureWidget(
                     title: "SUPPLY",
                     setpoint: _mqttController.temp2.value.toString(),
                     high: _mqttController.temp2setlow.value.toString(),
-                    low: _mqttController.temp2sethigh.value.toString(), getColorLogic: (pressure) =>
-
+                    low: _mqttController.temp2sethigh.value.toString(),
+                    getColorLogic: (pressure) =>
                         (_mqttController.temp2sethigh.value >=
                                     _mqttController.temp2.value ||
                                 _mqttController.temp2setlow.value <=
@@ -90,7 +90,7 @@ class Temperature extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -104,7 +104,6 @@ class Temperature extends StatelessWidget {
                   () => TemperatureWidget(
                     title: "SUCTION",
                     setpoint: _mqttController.temp3.value.toString(),
-                    // high:_mqttController.temp3setlow.value.toString(),
                     low: _mqttController.temp3sethigh.value.toString(),
                     getColorLogic: (pressure) => _mqttController.temp3.value <=
                             _mqttController.temp3sethigh.value
@@ -126,14 +125,10 @@ class Temperature extends StatelessWidget {
                             _mqttController.temp4setlow.value
                         ? Colors.red
                         : Colors.white,
-                    // low: _mqttController.temp4sethigh.value.toString()
                   ),
                 ),
               )
             ],
-          ),
-          SizedBox(
-            height: 10,
           ),
         ],
       ),

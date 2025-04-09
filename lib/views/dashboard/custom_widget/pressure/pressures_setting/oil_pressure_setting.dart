@@ -2,7 +2,6 @@ import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:app/controller/slider_controller/slider_controller.dart';
 
 class OilPressureSetting extends StatelessWidget {
   // final String title;

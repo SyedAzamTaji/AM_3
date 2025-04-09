@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:app/views/dashboard/custom_widget/pressure/pressure_widget.dart';
-import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/high_pressure_setting.dart';
-import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/low_pressure_setting.dart';
+import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/discharge_pressure_setting.dart';
+import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/suction_pressure_setting.dart';
 import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/oil_pressure_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -129,7 +129,7 @@ class Pressures extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => LowPressureSetting());
+                    Get.to(() => SuctionPressureSetting());
                   },
                   child: Obx(
                     () => Pressurewidget(
@@ -137,7 +137,7 @@ class Pressures extends StatelessWidget {
                         // high: controller.psig1setlow.value.toString(),
                         low: controller.psig1sethigh.value.toString(),
                         setpoint: controller.psig1.value.toString(),
-                        getColorLogic: (pressure) => controller.psig1.value >=
+                        getColorLogic: (pressure) => controller.psig1.value <=
                                 controller.psig1sethigh.value
                             ? Colors.red
                             : Colors.white),
@@ -145,7 +145,7 @@ class Pressures extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => HighPressureSetting());
+                    Get.to(() => DischargePressureSetting());
                   },
 
                   child: Obx(
@@ -180,7 +180,7 @@ class Pressures extends StatelessWidget {
                                 // high: controller.psig3setlow.value.toString(),
                                 low: controller.psig3sethigh.value.toString(),
                                 setpoint: controller.psig3.value.toString(),
-                                getColorLogic: (pressure) => controller.psig3.value >=
+                                getColorLogic: (pressure) => controller.psig3.value <=
                                 controller.psig3sethigh.value
                             ? Colors.red
                             : Colors.white,

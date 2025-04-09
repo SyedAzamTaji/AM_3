@@ -52,7 +52,7 @@ class PressureContainer extends StatelessWidget {
                       child: PressureHomeWidget(
                     title: "Suction",
                     pressure: _mqttController.psig1.value,
-                    userSetLow: _mqttController.psig1.value, getColorLogic: (pressure) => _mqttController.psig1.value >=
+                    userSetLow: _mqttController.psig1.value, getColorLogic: (pressure) => _mqttController.psig1.value <=
                                 _mqttController.psig1sethigh.value
                             ? Colors.red
                             : Colors.white
@@ -76,7 +76,7 @@ class PressureContainer extends StatelessWidget {
                       child: PressureHomeWidget(
                     title: "Oil",
                     pressure: _mqttController.psig3.value,
-                    userSetLow: _mqttController.psig3.value, getColorLogic: (pressure) => _mqttController.psig3.value >=
+                    userSetLow: _mqttController.psig3.value, getColorLogic: (pressure) => _mqttController.psig3.value <=
                                 _mqttController.psig3sethigh.value
                             ? Colors.red
                             : Colors.white,
@@ -105,46 +105,48 @@ class PressureHomeWidget extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    double psi = pressure;
-    Color pressureColor =
-        getColorLogic != null ? getColorLogic!(psi) : Colors.white;
+    
+     return Obx(() {
+      final psi = pressure;
+      final pressureColor =
+          getColorLogic != null ? getColorLogic!(psi) : Colors.white;
 
-    //  Color pressureColor = pressure < userSetLow ? Colors.red : Colors.white;
-    return Container(
-      height: Get.height * 0.15,
-      width: Get.width * 0.29,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Get.width * 0.03),
-        color: Colors.green.withValues(alpha: 0.2),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
+      return Container(
+        height: Get.height * 0.15,
+        width: Get.width * 0.29,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Get.width * 0.03),
+          color: Colors.green.withValues(alpha: 0.2),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: Get.width * 0.045,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: Get.height * 0.015),
+            Icon(Icons.speed, color: Colors.red, size: Get.width * 0.08),
+            SizedBox(height: Get.height * 0.005),
+            Text(
+              "$psi PSI",
               style: TextStyle(
                 fontSize: Get.width * 0.045,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: pressureColor,
               ),
             ),
-          ),
-          SizedBox(height: Get.height * 0.015),
-          Icon(Icons.speed, color: Colors.red, size: Get.width * 0.08),
-          SizedBox(height: Get.height * 0.005),
-          Text(
-            "$pressure PSI",
-            style: TextStyle(
-              fontSize: Get.width * 0.045,
-              fontWeight: FontWeight.bold,
-              color: pressureColor,
-            ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }

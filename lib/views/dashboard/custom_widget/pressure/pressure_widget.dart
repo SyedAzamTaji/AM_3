@@ -3,21 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Pressurewidget extends StatelessWidget {
-  // final MqttController mqttController = Get.find<MqttController>();
-
   final String title;
   final String setpoint;
   final String? high;
   final String? low;
   final Color Function(double pressure)? getColorLogic;
- 
    Pressurewidget({
     super.key,
     required this.title,
     required this.setpoint,
     this.high,
     this.low, this.getColorLogic, 
-
   });
 
   @override

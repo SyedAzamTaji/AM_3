@@ -98,7 +98,7 @@ class FirebaseService {
         password: password,
       );
 
-      Get.offAll(() => NavBar());
+      // Get.offAll(() => NavBar());
     } on FirebaseAuthException catch (e) {
       // Handle errors
       String errorMessage = '';

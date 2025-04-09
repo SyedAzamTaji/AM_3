@@ -2,24 +2,18 @@ import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:app/controller/slider_controller/slider_controller.dart';
 
-class ChillOutSetting extends StatelessWidget {
-  
-
-  ChillOutSetting({ Key? key,
-  
-  }) : super(key: key);
-
-  
+class SupplySetting extends StatelessWidget {
+  SupplySetting({
+    super.key,
+  });
   final MqttController _mqttController = Get.find<MqttController>();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -41,9 +35,7 @@ class ChillOutSetting extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: Get.height * 0.02),
-
                 SizedBox(height: Get.height * 0.02),
-
                 Expanded(
                   child: SleekCircularSlider(
                     appearance: CircularSliderAppearance(
@@ -53,7 +45,6 @@ class ChillOutSetting extends StatelessWidget {
                       customWidths: CustomSliderWidths(
                         progressBarWidth: Get.width * 0.015,
                         trackWidth: Get.width * 0.015,
-                        // handlerSize: Get.width * 0.03,
                       ),
                       customColors: CustomSliderColors(
                         trackColor: Colors.white.withValues(alpha: 0.3),
@@ -68,15 +59,9 @@ class ChillOutSetting extends StatelessWidget {
                     max: 100,
                     initialValue: _mqttController.temp2.value.toDouble(),
                     onChange: null,
-                    //  (double value) {
-                    //   _mqttController.updateSuctionCurrent(value);
-                    // },
-                    // onChangeEnd: (double value) {
-                    //   _mqttController.buildJsonPayload;
-                    // },
                     innerWidget: (double value) => Center(
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.black.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(10),
@@ -95,7 +80,7 @@ class ChillOutSetting extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             letterSpacing: 1.2,
-                            shadows: [
+                            shadows: const [
                               Shadow(
                                 blurRadius: 15,
                                 color: Colors.greenAccent,
@@ -107,10 +92,7 @@ class ChillOutSetting extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(height: Get.height * 0.03),
-
-               
                 _buildSlider("Low Temperature", Colors.blue),
                 _buildSlider2("High Temperature", Colors.red),
               ],
@@ -167,7 +149,6 @@ class ChillOutSetting extends StatelessWidget {
               max: 100,
               onChanged: (double value) {
                 _mqttController.updateChillOutlp(value);
-               
               },
             ),
           ),
@@ -221,7 +202,7 @@ class ChillOutSetting extends StatelessWidget {
               min: 0,
               max: 100,
               onChanged: (double value) {
-  _mqttController.updateChillOuthp(value);
+                _mqttController.updateChillOuthp(value);
               },
             ),
           ),

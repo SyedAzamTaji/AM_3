@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class TemperatureContainer extends StatelessWidget {
   final MqttController _mqttController = Get.find<MqttController>();
-  TemperatureContainer({Key? key}) : super(key: key);
+  TemperatureContainer({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,30 +41,28 @@ class TemperatureContainer extends StatelessWidget {
           ),
           SizedBox(height: Get.height * 0.02),
           Obx(
-            ()=> Row(
+            () => Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                
-                   TemperatureWidget(
-                    title: "Return",
-                    temperature: _mqttController.temp1.value,
-                    getColorLogic: () => (_mqttController.temp1sethigh.value >=
-                                _mqttController.temp1.value ||
-                            _mqttController.temp1setlow.value <=
-                                _mqttController.temp1.value)
-                        ? Colors.red
-                        : Colors.white,
-                  ),
-                
+                TemperatureWidget(
+                  title: "Return",
+                  temperature: _mqttController.temp1.value,
+                  getColorLogic: () => (_mqttController.temp1sethigh.value >=
+                              _mqttController.temp1.value ||
+                          _mqttController.temp1setlow.value <=
+                              _mqttController.temp1.value)
+                      ? Colors.red
+                      : Colors.white,
+                ),
                 SizedBox(
                   width: Get.width * 0.02,
                 ),
                 TemperatureWidget(
                   title: "Supply",
                   temperature: _mqttController.temp2.value,
-                  getColorLogic: () => (_mqttController.temp2sethigh .value >=
+                  getColorLogic: () => (_mqttController.temp2sethigh.value >=
                               _mqttController.temp2.value ||
-                          _mqttController.temp2setlow .value <=
+                          _mqttController.temp2setlow.value <=
                               _mqttController.temp2.value)
                       ? Colors.red
                       : Colors.white,
@@ -114,40 +112,40 @@ class TemperatureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color tempColor = getColorLogic != null ? getColorLogic!() : Colors.white;
-    return Container(
-      height: Get.height * 0.14,
-      width: Get.width * 0.2,
-      decoration: BoxDecoration(
-        // boxShadow: [BoxShadow( color: Colors.green.shade100,blurRadius: 2,spreadRadius: 2),],
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: Colors.green.withAlpha(50),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            title,
-            style: TextStyle(
-                fontSize: Get.width * 0.04,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-          ),
-          SizedBox(height: Get.height * 0.01),
-          Icon(Icons.thermostat, color: Colors.blue, size: Get.width * 0.07),
-          SizedBox(width: Get.width * 0.02),
-          Text(
-            "${temperature.toStringAsFixed(1)}°C",
-            style: TextStyle(
-                fontSize: Get.width * 0.045,
-                fontWeight: FontWeight.bold,
-                color: tempColor),
-          ),
-        ],
-      ),
-    );
+    return Obx(() {
+      final tempColor = getColorLogic != null ? getColorLogic!() : Colors.white;
+
+      return Container(
+        height: Get.height * 0.14,
+        width: Get.width * 0.2,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          color: Colors.green.withAlpha(50),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: Get.height * 0.01),
+            Text(
+              title,
+              style: TextStyle(
+                  fontSize: Get.width * 0.04,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            SizedBox(height: Get.height * 0.01),
+            Icon(Icons.thermostat, color: Colors.blue, size: Get.width * 0.07),
+            SizedBox(width: Get.width * 0.02),
+            Text(
+              "${temperature.toStringAsFixed(1)}°C",
+              style: TextStyle(
+                  fontSize: Get.width * 0.045,
+                  fontWeight: FontWeight.bold,
+                  color: tempColor),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

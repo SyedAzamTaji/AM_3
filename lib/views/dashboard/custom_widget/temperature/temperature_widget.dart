@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class TemperatureWidget extends StatelessWidget {
   final String title;
   final String setpoint;
-  final String? high; // Nullable now
-  final String? low;  // Nullable now
+  final String? high;
+  final String? low;
   final Color Function(int temp)? getColorLogic;
   const TemperatureWidget({
     super.key,
     required this.title,
     required this.setpoint,
     this.high,
-    this.low, this.getColorLogic,
+    this.low,
+    this.getColorLogic,
   });
 
   @override
   Widget build(BuildContext context) {
-      int temp = int.parse(setpoint);
-Color pressureColor = getColorLogic != null
-    ? getColorLogic!(temp)
-    : Colors.white;
-      
+    int temp = int.parse(setpoint);
+    Color pressureColor =
+        getColorLogic != null ? getColorLogic!(temp) : Colors.white;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -49,8 +50,8 @@ Color pressureColor = getColorLogic != null
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                   width: Get.width * 0.11,  
-  height: Get.height * 0.0486,
+                  width: Get.width * 0.11,
+                  height: Get.height * 0.0486,
                   child: CircularProgressIndicator(
                     value: (double.parse(setpoint) / 100),
                     strokeWidth: 4,
@@ -61,7 +62,7 @@ Color pressureColor = getColorLogic != null
                 ),
                 Text(
                   "${(double.parse(setpoint)).toInt()}°C",
-                  style:  TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: pressureColor,
@@ -74,7 +75,7 @@ Color pressureColor = getColorLogic != null
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Colors.green.withValues(alpha:0.8),
+                  color: Colors.green.withValues(alpha: 0.8),
                 ),
                 width: Get.width * 1,
                 height: Get.height * 0.055,
@@ -88,8 +89,7 @@ Color pressureColor = getColorLogic != null
                           children: [
                             const Text('Low: ',
                                 style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold)),
+                                    fontSize: 13, fontWeight: FontWeight.bold)),
                             Text(low!,
                                 style: const TextStyle(
                                   fontSize: 13,
@@ -101,8 +101,7 @@ Color pressureColor = getColorLogic != null
                           children: [
                             const Text('High: ',
                                 style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold)),
+                                    fontSize: 13, fontWeight: FontWeight.bold)),
                             Text(high!,
                                 style: const TextStyle(
                                   fontSize: 13,
