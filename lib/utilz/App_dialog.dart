@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppDialogs {
-  
   void showErrorDialog(BuildContext context, String message) {
     showDialog(
       context: context,
@@ -25,7 +24,8 @@ class AppDialogs {
 }
 
 class PasswordDialog {
-  final RxBool isObscured = true.obs; // This will control the visibility of the password
+  final RxBool isObscured =
+      true.obs; 
 
   void showPasswordDialog(Widget Page) {
     TextEditingController passwordController = TextEditingController();
@@ -41,15 +41,17 @@ class PasswordDialog {
                 controller: passwordController,
                 obscureText: isObscured.value,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   hintText: "Enter Password",
                   suffixIcon: IconButton(
                     icon: Icon(
-                      isObscured.value ? Icons.visibility_off : Icons.visibility,
+                      isObscured.value
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                       color: Colors.grey,
                     ),
                     onPressed: () {
-                      isObscured.value = !isObscured.value; // Toggle visibility
+                      isObscured.value = !isObscured.value; 
                     },
                   ),
                 ),

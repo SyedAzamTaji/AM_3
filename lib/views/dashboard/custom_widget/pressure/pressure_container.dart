@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class PressureContainer extends StatelessWidget {
   final MqttController _mqttController = Get.find<MqttController>();
-  PressureContainer({Key? key}) : super(key: key);
+  PressureContainer({super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +15,13 @@ class PressureContainer extends StatelessWidget {
         width: Get.width * 0.95,
         height: Get.height * 0.24,
         decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.3),
+          //  gradient: LinearGradient( begin: Alignment.topLeft,
+          //                 end: Alignment.bottomRight,
+          //                 colors: [
+          //                   Colors.green.shade700,
+          //                   Colors.white,
+          //                 ], ),
+           color: Colors.grey.shade800,
           borderRadius: BorderRadius.circular(Get.width * 0.03),
         ),
         child: Column(
@@ -50,13 +56,14 @@ class PressureContainer extends StatelessWidget {
                 children: [
                   Expanded(
                       child: PressureHomeWidget(
-                    title: "Suction",
-                    pressure: _mqttController.psig1.value,
-                    userSetLow: _mqttController.psig1.value, getColorLogic: (pressure) => _mqttController.psig1.value <=
-                                _mqttController.psig1sethigh.value
-                            ? Colors.red
-                            : Colors.white
-                  )),
+                          title: "Suction",
+                          pressure: _mqttController.psig1.value,
+                          userSetLow: _mqttController.psig1.value,
+                          getColorLogic: (pressure) =>
+                              _mqttController.psig1.value <=
+                                      _mqttController.psig1sethigh.value
+                                  ? Colors.red
+                                  : Colors.white)),
                   SizedBox(
                     width: Get.width * 0.01,
                   ),
@@ -64,10 +71,11 @@ class PressureContainer extends StatelessWidget {
                       child: PressureHomeWidget(
                     title: "Discharge",
                     pressure: _mqttController.psig2.value,
-                    userSetLow: _mqttController.psig2.value,getColorLogic: (pressure) => _mqttController.psig2.value <=
-                                _mqttController.psig2setlow.value
-                            ? Colors.red
-                            : Colors.white ,
+                    userSetLow: _mqttController.psig2.value,
+                    getColorLogic: (pressure) => _mqttController.psig2.value <=
+                            _mqttController.psig2setlow.value
+                        ? Colors.red
+                        : Colors.white,
                   )),
                   SizedBox(
                     width: Get.width * 0.01,
@@ -76,10 +84,11 @@ class PressureContainer extends StatelessWidget {
                       child: PressureHomeWidget(
                     title: "Oil",
                     pressure: _mqttController.psig3.value,
-                    userSetLow: _mqttController.psig3.value, getColorLogic: (pressure) => _mqttController.psig3.value <=
-                                _mqttController.psig3sethigh.value
-                            ? Colors.red
-                            : Colors.white,
+                    userSetLow: _mqttController.psig3.value,
+                    getColorLogic: (pressure) => _mqttController.psig3.value <=
+                            _mqttController.psig3sethigh.value
+                        ? Colors.red
+                        : Colors.white,
                   )),
                 ],
               ),
@@ -99,14 +108,13 @@ class PressureHomeWidget extends StatelessWidget {
   const PressureHomeWidget({
     required this.title,
     required this.pressure,
-    Key? key,
+    super.key,
     required this.userSetLow,
     this.getColorLogic,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
-    
-     return Obx(() {
+    return Obx(() {
       final psi = pressure;
       final pressureColor =
           getColorLogic != null ? getColorLogic!(psi) : Colors.white;
@@ -116,7 +124,10 @@ class PressureHomeWidget extends StatelessWidget {
         width: Get.width * 0.29,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Get.width * 0.03),
-          color: Colors.green.withValues(alpha: 0.2),
+          // gradient: LinearGradient(begin: Alignment.topLeft,
+          //                 end: Alignment.bottomRight,
+          //   colors: [Colors.black,Colors.white])
+            color: Colors.grey.shade800,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -4,23 +4,10 @@ import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class OilPressureSetting extends StatelessWidget {
-  // final String title;
-  // final double currentTemp;
-  // final double currentHighTemp;
-  // final double currentLowTemp;
+  OilPressureSetting({
+    super.key,
+  });
 
-  // final Function(double) onUpdate;
-
-  OilPressureSetting({ Key? key,
-    // required this.title,
-    // required this.currentTemp,
-    // required this.currentHighTemp,
-    // required this.currentLowTemp,
-
-    // required this.onUpdate,
-  }) : super(key: key);
-
-  // final SliderController controller = Get.put(SliderController());
   final MqttController _mqttController = Get.find<MqttController>();
 
   @override
@@ -28,7 +15,7 @@ class OilPressureSetting extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -60,7 +47,6 @@ class OilPressureSetting extends StatelessWidget {
                       customWidths: CustomSliderWidths(
                         progressBarWidth: Get.width * 0.015,
                         trackWidth: Get.width * 0.015,
-                        // handlerSize: Get.width * 0.03,
                       ),
                       customColors: CustomSliderColors(
                         trackColor: Colors.white.withValues(alpha: 0.3),
@@ -75,15 +61,9 @@ class OilPressureSetting extends StatelessWidget {
                     max: 1000,
                     initialValue: _mqttController.psig3.value.toDouble(),
                     onChange: null,
-                    // (double value) {
-                    //   _mqttController.updateSuctionCurrent(value);
-                    // },
-                    // onChangeEnd: (double value) {
-                    //   _mqttController.buildJsonPayload;
-                    // },
                     innerWidget: (double value) => Center(
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.black.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(10),
@@ -102,7 +82,7 @@ class OilPressureSetting extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             letterSpacing: 1.2,
-                            shadows: [
+                            shadows: const [
                               Shadow(
                                 blurRadius: 15,
                                 color: Colors.greenAccent,
@@ -114,12 +94,8 @@ class OilPressureSetting extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(height: Get.height * 0.03),
-
-                /// Sliders for Low & High Temperature
                 _buildSlider("Low Pressure", Colors.blue),
-                // _buildSlider2("High Pressure", Colors.red),
               ],
             ),
           ),
@@ -127,6 +103,7 @@ class OilPressureSetting extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSlider(String title, Color color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,61 +151,6 @@ class OilPressureSetting extends StatelessWidget {
               divisions: 100,
               onChanged: (double value) {
                 _mqttController.updateOilPressurelp(value);
-              },
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSlider2(String title, Color color) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: Get.height * 0.015),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: Get.width * 0.045,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 1.1,
-                ),
-              ),
-              Obx(
-                () => Text(
-                  "${_mqttController.psig3setlow.value.toDouble().toStringAsFixed(0)} PSI",
-                  style: TextStyle(
-                    fontSize: Get.width * 0.04,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 1.1,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SliderTheme(
-          data: SliderTheme.of(Get.context!).copyWith(
-            thumbColor: color,
-            activeTrackColor: color,
-            inactiveTrackColor: Colors.white.withValues(alpha: 0.3),
-            overlayColor: color.withValues(alpha: 0.3),
-          ),
-          child: Obx(
-            () => Slider(
-              value: _mqttController.psig3setlow.value.toDouble(),
-              min: 0,
-              max: 100,
-              divisions: 100,
-              onChanged: (double value) {
-                _mqttController.updateOilPressurehp(value);
               },
             ),
           ),

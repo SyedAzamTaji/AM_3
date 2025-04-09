@@ -13,7 +13,15 @@ class TemperatureContainer extends StatelessWidget {
       width: Get.width * 0.95,
       height: Get.height * 0.24,
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.3),
+        // gradient: LinearGradient( begin: Alignment.topLeft,
+        //                   end: Alignment.bottomRight,
+        //                   colors: [
+        //                     Colors.green,
+        //                     Colors.white,
+        //                   ], ),
+        color: Colors.grey.shade800,
+        
+        
         borderRadius: BorderRadius.circular(Get.width * 0.03),
       ),
       child: Column(
@@ -103,7 +111,7 @@ class TemperatureWidget extends StatelessWidget {
   final int temperature;
   final Color Function()? getColorLogic;
 
-  TemperatureWidget({
+  const TemperatureWidget({
     required this.title,
     required this.temperature,
     Key? key,
@@ -120,7 +128,10 @@ class TemperatureWidget extends StatelessWidget {
         width: Get.width * 0.2,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          color: Colors.green.withAlpha(50),
+          // gradient: LinearGradient(begin: Alignment.topLeft,
+          //                 end: Alignment.bottomRight,
+          //   colors: [Colors.black,Colors.white])
+           color: Colors.grey.shade800,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

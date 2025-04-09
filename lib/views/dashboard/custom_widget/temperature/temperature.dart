@@ -13,7 +13,7 @@ class Temperature extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white.withValues(alpha: 0.9),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -21,7 +21,7 @@ class Temperature extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               decoration: BoxDecoration(
-                color: Colors.grey.withValues(alpha: 0.3),
+                color: Colors.grey.shade800,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Row(

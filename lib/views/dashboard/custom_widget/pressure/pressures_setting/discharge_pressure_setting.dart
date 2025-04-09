@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class DischargePressureSetting extends StatelessWidget {
-  DischargePressureSetting({ super.key,
+  DischargePressureSetting({
+    super.key,
   });
   final MqttController _mqttController = Get.find<MqttController>();
   @override
@@ -99,6 +100,7 @@ class DischargePressureSetting extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSlider2(String title, Color color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

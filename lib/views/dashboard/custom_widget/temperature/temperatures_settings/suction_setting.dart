@@ -157,4 +157,5 @@ class SuctionSetting extends StatelessWidget {
         ),
       ],
     );
-  }}
+  }
+}

@@ -28,7 +28,7 @@ class TemperatureWidget extends StatelessWidget {
         height: Get.width * 0.4,
         width: Get.width * 0.45,
         decoration: BoxDecoration(
-          color: Colors.grey.withAlpha(80),
+          color: Colors.grey.shade800,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -57,7 +57,7 @@ class TemperatureWidget extends StatelessWidget {
                     strokeWidth: 4,
                     backgroundColor: Colors.white54,
                     valueColor:
-                        AlwaysStoppedAnimation<Color>(Colors.greenAccent),
+                        const AlwaysStoppedAnimation<Color>(Colors.greenAccent),
                   ),
                 ),
                 Text(

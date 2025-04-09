@@ -2,15 +2,17 @@ import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+
 class AmpereSetting extends StatelessWidget {
-  AmpereSetting({ Key? key,
-  }) : super(key: key);
+  AmpereSetting({
+    super.key,
+  });
   final MqttController _mqttController = Get.find<MqttController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Obx(
-        ()=> Scaffold(
+        () => Scaffold(
           body: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -61,13 +63,14 @@ class AmpereSetting extends StatelessWidget {
                       onChange: null,
                       innerWidget: (double value) => Center(
                         child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: Colors.black.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.greenAccent.withValues(alpha: 0.8),
+                                color:
+                                    Colors.greenAccent.withValues(alpha: 0.8),
                                 blurRadius: 15,
                                 spreadRadius: 2,
                               ),
@@ -92,9 +95,7 @@ class AmpereSetting extends StatelessWidget {
                       ),
                     ),
                   ),
-        
                   SizedBox(height: Get.height * 0.03),
-                 
                   _buildSlider2("High Ampere", Colors.red),
                 ],
               ),
@@ -104,6 +105,7 @@ class AmpereSetting extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSlider2(String title, Color color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

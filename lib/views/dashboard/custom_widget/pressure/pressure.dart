@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:app/views/dashboard/custom_widget/pressure/pressure_widget.dart';
 import 'package:app/views/dashboard/custom_widget/pressure/pressures_setting/discharge_pressure_setting.dart';
@@ -28,18 +26,18 @@ class Pressures extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: "Password",
                     border: OutlineInputBorder(
-                      // Rounded border
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.blueAccent),
+                      borderSide: const BorderSide(color: Colors.blueAccent),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide:
-                          BorderSide(color: Colors.blueAccent, width: 2),
+                          const BorderSide(color: Colors.blueAccent, width: 2),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.blue, width: 2),
+                      borderSide:
+                          const BorderSide(color: Colors.blue, width: 2),
                     ),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -50,7 +48,7 @@ class Pressures extends StatelessWidget {
                       ),
                       onPressed: () {
                         controller.isObscured.value =
-                            !controller.isObscured.value; // Toggle visibility
+                            !controller.isObscured.value;
                       },
                     ),
                   )),
@@ -60,8 +58,8 @@ class Pressures extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               if (_passwordController.text == "1234") {
-                controller.isOilPressureVisible.value = !controller
-                    .isOilPressureVisible.value; // Show Oil Pressure widget
+                controller.isOilPressureVisible.value =
+                    !controller.isOilPressureVisible.value;
 
                 Get.back();
               } else {
@@ -70,24 +68,26 @@ class Pressures extends StatelessWidget {
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green, // Green Background
-              foregroundColor: Colors.white, // White Text
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
-              textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+              textStyle:
+                  const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15), // Rounded Corners
+                borderRadius: BorderRadius.circular(15),
               ),
             ),
-            child: Text("Unlock"),
+            child: const Text("Unlock"),
           ),
         ],
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+       backgroundColor: Colors.white.withValues(alpha: 0.9),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +100,7 @@ class Pressures extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
                 decoration: BoxDecoration(
-                  color: Colors.grey.withValues(alpha: 0.3),
+                  color: Colors.grey.shade800,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Row(
@@ -134,7 +134,6 @@ class Pressures extends StatelessWidget {
                   child: Obx(
                     () => Pressurewidget(
                         title: "SUCTION",
-                        // high: controller.psig1setlow.value.toString(),
                         low: controller.psig1sethigh.value.toString(),
                         setpoint: controller.psig1.value.toString(),
                         getColorLogic: (pressure) => controller.psig1.value <=
@@ -147,27 +146,25 @@ class Pressures extends StatelessWidget {
                   onTap: () {
                     Get.to(() => DischargePressureSetting());
                   },
-
                   child: Obx(
-                    ()=> Pressurewidget(
+                    () => Pressurewidget(
                       title: "DISCHARGE",
                       high: controller.psig2setlow.value.toString(),
-                      // low: controller.psig2sethigh.value.toString(),
-                      setpoint: controller.psig2.value.toString(), getColorLogic: (pressure) => controller.psig2.value <=
-                                controller.psig2setlow.value
-                            ? Colors.red
-                            : Colors.white ,
+                      setpoint: controller.psig2.value.toString(),
+                      getColorLogic: (pressure) =>
+                          controller.psig2.value <= controller.psig2setlow.value
+                              ? Colors.red
+                              : Colors.white,
                     ),
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: 10,
+              height: Get.height * 0.01,
             ),
             GestureDetector(
-                onLongPress:
-                    _showPasswordDialog, // Long press to enter password
+                onLongPress: _showPasswordDialog,
                 child: Obx(
                   () => controller.isOilPressureVisible.value
                       ? GestureDetector(
@@ -175,21 +172,20 @@ class Pressures extends StatelessWidget {
                             Get.to(() => OilPressureSetting());
                           },
                           child: Obx(
-                              () => Pressurewidget(
-                                title: "OIL",
-                                // high: controller.psig3setlow.value.toString(),
-                                low: controller.psig3sethigh.value.toString(),
-                                setpoint: controller.psig3.value.toString(),
-                                getColorLogic: (pressure) => controller.psig3.value <=
-                                controller.psig3sethigh.value
-                            ? Colors.red
-                            : Colors.white,
-                              ),
+                            () => Pressurewidget(
+                              title: "OIL",
+                              low: controller.psig3sethigh.value.toString(),
+                              setpoint: controller.psig3.value.toString(),
+                              getColorLogic: (pressure) =>
+                                  controller.psig3.value <=
+                                          controller.psig3sethigh.value
+                                      ? Colors.red
+                                      : Colors.white,
                             ),
+                          ),
                         )
-                      : Icon(Icons.lock, color: Colors.white, size: 40),
-                ) // Locked Icon
-                ),
+                      : const Icon(Icons.lock, color: Colors.white, size: 40),
+                )),
           ],
         ),
       ),

@@ -2,9 +2,10 @@ import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+
 class SuctionPressureSetting extends StatelessWidget {
   final MqttController _mqttController = Get.find<MqttController>();
-   SuctionPressureSetting({super.key});
+  SuctionPressureSetting({super.key});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,34 +42,33 @@ class SuctionPressureSetting extends StatelessWidget {
                       customWidths: CustomSliderWidths(
                         progressBarWidth: Get.width * 0.015,
                         trackWidth: Get.width * 0.015,
-                       
                       ),
                       customColors: CustomSliderColors(
-                        trackColor: Colors.white.withValues(alpha:   0.3),
+                        trackColor: Colors.white.withValues(alpha: 0.3),
                         progressBarColors: [Colors.green, Colors.green],
                         dotColor: Colors.green,
                       ),
                     ),
                     min: 0,
                     max: 1000,
-                    initialValue:  _mqttController.psig1.value,
+                    initialValue: _mqttController.psig1.value,
                     onChange: null,
                     innerWidget: (double value) => Center(
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha:   0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.greenAccent.withValues( alpha:  0.8),
+                              color: Colors.greenAccent.withValues(alpha: 0.8),
                               blurRadius: 15,
                               spreadRadius: 2,
                             ),
                           ],
                         ),
                         child: Text(
-                          "${ _mqttController.psig1.value.toDouble().toStringAsFixed(0)} Psi",
+                          "${_mqttController.psig1.value.toDouble().toStringAsFixed(0)} Psi",
                           style: TextStyle(
                             fontSize: Get.width * 0.07,
                             fontWeight: FontWeight.bold,
@@ -95,6 +95,7 @@ class SuctionPressureSetting extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSlider(String title, Color color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,8 +132,8 @@ class SuctionPressureSetting extends StatelessWidget {
           data: SliderTheme.of(Get.context!).copyWith(
             thumbColor: color,
             activeTrackColor: color,
-            inactiveTrackColor: Colors.white.withValues(alpha:   0.3),
-            overlayColor: color.withValues(alpha:   0.3),
+            inactiveTrackColor: Colors.white.withValues(alpha: 0.3),
+            overlayColor: color.withValues(alpha: 0.3),
           ),
           child: Obx(
             () => Slider(
@@ -148,4 +149,5 @@ class SuctionPressureSetting extends StatelessWidget {
         ),
       ],
     );
-}}
+  }
+}

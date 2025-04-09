@@ -1,4 +1,3 @@
-import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,30 +7,28 @@ class Pressurewidget extends StatelessWidget {
   final String? high;
   final String? low;
   final Color Function(double pressure)? getColorLogic;
-   Pressurewidget({
+  const Pressurewidget({
     super.key,
     required this.title,
     required this.setpoint,
     this.high,
-    this.low, this.getColorLogic, 
+    this.low,
+    this.getColorLogic,
   });
 
   @override
   Widget build(BuildContext context) {
     double pressure = double.parse(setpoint);
-Color pressureColor = getColorLogic != null
-    ? getColorLogic!(pressure)
-    : Colors.white;
-   
-//     double pressure = double.parse(setpoint); 
-// Color pressureColor = mqttController.psig1.value >= mqttController.psig1sethigh.value ? Colors.red : Colors.white;
+    Color pressureColor =
+        getColorLogic != null ? getColorLogic!(pressure) : Colors.white;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: Get.width * 0.49,
         width: Get.width * 0.4,
         decoration: BoxDecoration(
-          color: Colors.grey.withAlpha(80),
+          color: Colors.grey.shade800,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -48,13 +45,13 @@ Color pressureColor = getColorLogic != null
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: Get.height * 0.038),
+            SizedBox(height: Get.height * 0.039),
             Stack(
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  height: Get.height*0.052,
-                  width: Get.width*0.12,
+                  height: Get.height * 0.052,
+                  width: Get.width * 0.12,
                   child: CircularProgressIndicator(
                     value: (double.parse(setpoint) / 1000),
                     strokeWidth: 4,
@@ -65,7 +62,7 @@ Color pressureColor = getColorLogic != null
                 ),
                 Text(
                   "${(double.parse(setpoint)).toInt()} P",
-                  style:  TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: pressureColor,
@@ -80,7 +77,7 @@ Color pressureColor = getColorLogic != null
                 height: Get.height * 0.055,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Colors.green.withValues(alpha:0.8),
+                  color: Colors.green.withValues(alpha: 0.8),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -94,10 +91,8 @@ Color pressureColor = getColorLogic != null
                           children: [
                             const Text('Low: ',
                                 style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold)),
-                            Text(low!,
-                                style: const TextStyle(fontSize: 13)),
+                                    fontSize: 13, fontWeight: FontWeight.bold)),
+                            Text(low!, style: const TextStyle(fontSize: 13)),
                           ],
                         ),
                       if (high != null)
@@ -105,10 +100,8 @@ Color pressureColor = getColorLogic != null
                           children: [
                             const Text('High: ',
                                 style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold)),
-                            Text(high!,
-                                style: const TextStyle(fontSize: 13)),
+                                    fontSize: 13, fontWeight: FontWeight.bold)),
+                            Text(high!, style: const TextStyle(fontSize: 13)),
                           ],
                         ),
                     ],

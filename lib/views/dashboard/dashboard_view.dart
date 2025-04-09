@@ -21,18 +21,18 @@ class _DashboardState extends State<Dashboard> {
       return SafeArea(
         child: Scaffold(
           body: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.green, Colors.white],
-              ),
+            decoration:  BoxDecoration(color: Colors.white
+              // gradient: LinearGradient(
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              //   colors: [Colors.white, Colors.white],
+              // ),
             ),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   AppBar(
-                    backgroundColor: Colors.green.shade700,
+                    backgroundColor: Colors.black.withValues(alpha: 0.9),
                     elevation: 4,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
@@ -61,14 +61,15 @@ class _DashboardState extends State<Dashboard> {
                       width: Get.width * 0.95,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Colors.green.shade700,
-                            Colors.white,
-                          ],
-                        ),
+                        color: Colors.black..withValues(alpha: 0.5),
+                        // gradient: LinearGradient(
+                        //   begin: Alignment.topCenter,
+                        //   end: Alignment.topRight,
+                        //   colors: [
+                        //     Colors.black,
+                        //     Colors.white,
+                        //   ],
+                        // ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -79,7 +80,7 @@ class _DashboardState extends State<Dashboard> {
                               "Compressor Status",
                               style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.black87,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
