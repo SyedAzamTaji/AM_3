@@ -1,4 +1,5 @@
 import 'package:app/controller/mqtt_controller/mqtt_controller.dart';
+import 'package:app/controller/theme_controller.dart';
 import 'package:app/utilz/App_dialog.dart';
 import 'package:app/views/dashboard/custom_widget/temperature/temperature.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 
 class TemperatureContainer extends StatelessWidget {
   final MqttController _mqttController = Get.find<MqttController>();
+  final ThemeController themeController=Get.find<ThemeController>();
   TemperatureContainer({super.key});
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class TemperatureContainer extends StatelessWidget {
         //                     Colors.green,
         //                     Colors.white,
         //                   ], ),
-        color: Colors.grey.shade800,
+        color: themeController.isDarkMode.value ?Colors.grey.shade500: Colors.black ,
         
         
         borderRadius: BorderRadius.circular(Get.width * 0.03),
