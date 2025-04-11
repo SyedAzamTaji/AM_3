@@ -15,12 +15,7 @@ class TemperatureContainer extends StatelessWidget {
       width: Get.width * 0.95,
       height: Get.height * 0.24,
       decoration: BoxDecoration(
-        // gradient: LinearGradient( begin: Alignment.topLeft,
-        //                   end: Alignment.bottomRight,
-        //                   colors: [
-        //                     Colors.green,
-        //                     Colors.white,
-        //                   ], ),
+       
         color: themeController.isDarkMode.value ?Colors.grey.shade500: Colors.black ,
         
         

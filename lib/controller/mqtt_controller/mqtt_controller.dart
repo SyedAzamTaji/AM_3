@@ -57,43 +57,43 @@ class MqttController extends GetxController {
   var isConnected = false.obs;
   var message = "".obs;
 
-  var correctPassword = "1234567".obs;
-  var isPasswordCorrect = false.obs;
-  var currentCardIndex = 0.obs;
-  var isOilTemperatureOn = false.obs;
+  // var correctPassword = "1234567".obs;
+  // var isPasswordCorrect = false.obs;
+  // var currentCardIndex = 0.obs;
+  // var isOilTemperatureOn = false.obs;
   var isOilPressureVisible = false.obs; 
   var isObscured=false.obs; 
   MqttServerClient? client;
 
 //notification
 
-  var notifications = <String>[].obs;
-   void updateTemp(int newTemp) {
-    temp1.value = newTemp;
-    if (newTemp > temp1setlow.value || newTemp < temp1sethigh.value) {
-      String msg = "Temperature Alert: $newTemp°C";
-      NotificationService.showNotification(title: "Temperature Alert", body: msg);
-      notifications.add(msg);
-    }
-  }
+  // var notifications = <String>[].obs;
+  //  void updateTemp(int newTemp) {
+  //   temp1.value = newTemp;
+  //   if (newTemp > temp1setlow.value || newTemp < temp1sethigh.value) {
+  //     String msg = "Temperature Alert: $newTemp°C";
+  //     NotificationService.showNotification(title: "Temperature Alert", body: msg);
+  //     notifications.add(msg);
+  //   }
+  // }
 
-  void updatePressure(double newPressure) {
-    psig1.value = newPressure;
-    if (newPressure > psig1sethigh.value || newPressure < psig1.value) {
-      String msg = "Pressure Alert: $newPressure PSI";
-      NotificationService.showNotification(title: "Pressure Alert", body: msg);
-      notifications.add(msg);
-    }
-  }
+  // void updatePressure(double newPressure) {
+  //   psig1.value = newPressure;
+  //   if (newPressure > psig1sethigh.value || newPressure < psig1.value) {
+  //     String msg = "Pressure Alert: $newPressure PSI";
+  //     NotificationService.showNotification(title: "Pressure Alert", body: msg);
+  //     notifications.add(msg);
+  //   }
+  // }
 
-  void updateAmpere(int newAmpere) {
-    amp2.value = newAmpere;
-    if (newAmpere > amp1low.value || newAmpere < amp2.value) {
-      String msg = "Ampere Alert: $newAmpere A";
-      NotificationService.showNotification(title: "Ampere Alert", body: msg);
-      notifications.add(msg);
-    }
-  }
+  // void updateAmpere(int newAmpere) {
+  //   amp2.value = newAmpere;
+  //   if (newAmpere > amp1low.value || newAmpere < amp2.value) {
+  //     String msg = "Ampere Alert: $newAmpere A";
+  //     NotificationService.showNotification(title: "Ampere Alert", body: msg);
+  //     notifications.add(msg);
+  //   }
+  // }
 
   //notification
 
@@ -355,15 +355,8 @@ class MqttController extends GetxController {
     publishMessage(jsonString);
   }
 
-  void toggleCardVisibility() {
-    currentCardIndex.value =
-        (currentCardIndex.value + 1) % 3; // Cycle through 0, 1, 2
-  }
 
-  void updateChilledWaterInTemp(String temp) {
-    temp1.value = int.parse(temp);
-    buildJsonPayload();
-  }
+
 
   //Cw in ka low slider
   void updateChillInlp(double value) {
@@ -379,10 +372,7 @@ class MqttController extends GetxController {
     update();
   }
 
-  void updateChilledWateroutTemp(String temp) {
-    temp2.value = int.parse(temp);
-    buildJsonPayload();
-  }
+ 
 
   //Cw out ka low slider
   void updateChillOutlp(double value) {
@@ -398,21 +388,8 @@ class MqttController extends GetxController {
     update();
   }
 
-  void compStatus(String status) {
-    comp1status.value = int.parse(status);
-    buildJsonPayload();
-  }
+ 
 
-  void updateSuctionCurrent(double value) {
-    temp3.value = value.toInt();
-    buildJsonPayload();
-  }
-
-  void updateSuctionHigh(double value) {
-    temp3setlow.value = value.toInt();
-    buildJsonPayload();
-    update();
-  }
 
   void updateSuctionLow(double value) {
     temp3sethigh.value = value.toInt();
@@ -504,64 +481,11 @@ class MqttController extends GetxController {
     update();
   }
 
-  void updateDischargeTemp(String high, String low) {
-    temp4setlow.value = int.parse(high);
-    temp4sethigh.value = int.parse(low);
-    buildJsonPayload();
-  }
-
-  void updateDischargeCurrent(double value) {
-    temp4.value = value.toInt();
-    buildJsonPayload();
-  }
-
+  
   void updateDischargeHigh(double value) {
     temp4setlow.value = value.toInt();
     buildJsonPayload();
     update();
-  }
-
-  void updateDischargeLow(double value) {
-    temp4sethigh.value = value.toInt();
-    buildJsonPayload();
-    update();
-  }
-
-  void updateContainerValuesLP(String low, String high) {
-    psig1sethigh.value = int.parse(low);
-    psig1setlow.value = int.parse(high);
-    buildJsonPayload();
-  }
-
-  void updateOilPressure(String low, String high) {
-    psig3sethigh.value = int.parse(low);
-    psig3setlow.value = int.parse(high);
-    buildJsonPayload();
-  }
-
-  void updateContainerValuesHP(String high, String low) {
-    psig2sethigh.value = int.parse(low);
-    psig2setlow.value = int.parse(high);
-    buildJsonPayload();
-  }
-
-  void updateContainerValuesAmpereph1(String high, String low) {
-    log(high.toString());
-    amp1low.value = int.parse(high);
-    amp1high.value = int.parse(low);
-    buildJsonPayload();
-  }
-
-  void updateContainerValuesAmpereph2(String high, String low) {
-    amp2low.value = int.parse(high);
-    amp2high.value = int.parse(low);
-    buildJsonPayload();
-  }
-
-  void updateContainerValuesAmpereph3(String high, String low) {
-    amp3low.value = int.parse(high);
-    amp3high.value = int.parse(low);
-    buildJsonPayload();
   }
 
   void publishMessage(String message) {
@@ -584,38 +508,6 @@ class MqttController extends GetxController {
     }
   }
 
-  Future<void> showPasswordDialog(BuildContext context) async {
-    TextEditingController passwordController = TextEditingController();
-
-    await Get.dialog(
-      AlertDialog(
-        title: Text("Enter Password"),
-        content: TextField(
-          controller: passwordController,
-          obscureText: true,
-          decoration: InputDecoration(hintText: "Enter password"),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              if (passwordController.text == correctPassword.value) {
-                isPasswordCorrect.value = true;
-
-                Get.back();
-              } else {
-                Get.snackbar("Error", "Incorrect Password");
-              }
-            },
-            child: Text("Submit"),
-          ),
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text("Cancel"),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   void onClose() {

@@ -54,7 +54,7 @@ class _DashboardState extends State<Dashboard> {
                           icon: const Icon(Icons.notifications,
                               color: Colors.white),
                           onPressed: () {
-                            Get.to(() => NotificationScreen());
+                            // Get.to(() => NotificationScreen());
                           },
                         ),
                         IconButton(
